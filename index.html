@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SBAC Reading Review - Inferences</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1a2744;--blue:#2563eb;--sky:#dbeafe;--green:#16a34a;--green-bg:#dcfce7;--red:#dc2626;--red-bg:#fee2e2;--gray:#64748b;--light:#f8fafc;--border:#e2e8f0;--passage-bg:#f0f4ff;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--light);color:var(--navy);min-height:100vh;}
+
+/* HIGHLIGHT */
+.tts-word{display:inline;}
+.tts-word.speaking{background:#fde68a;border-radius:3px;outline:2px solid #f59e0b;padding:0 1px;}
+
+/* COVER */
+.cover-page{position:fixed;inset:0;z-index:999;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;}
+.cover-page.hidden{display:none;}
+.cover-stars{font-size:2.2rem;margin-bottom:18px;letter-spacing:10px;}
+.cover-title{font-family:'Merriweather',serif;font-size:2.6rem;font-weight:700;color:white;line-height:1.2;margin-bottom:10px;}
+.cover-sub{font-size:1.15rem;color:#93c5fd;margin-bottom:52px;font-weight:600;letter-spacing:.05em;}
+.cover-btn{background:#2563eb;color:white;border:none;font-family:'Nunito',sans-serif;font-size:1.25rem;font-weight:900;padding:20px 60px;border-radius:14px;cursor:pointer;box-shadow:0 8px 32px rgba(37,99,235,.5);transition:transform .15s,box-shadow .15s;}
+.cover-btn:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(37,99,235,.7);}
+
+/* NAME */
+.name-screen{position:fixed;inset:0;z-index:998;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;}
+.name-screen.hidden{display:none;}
+.name-title{font-family:'Merriweather',serif;font-size:1.9rem;font-weight:700;color:white;margin-bottom:10px;}
+.name-sub{color:#93c5fd;font-size:1rem;margin-bottom:32px;}
+.name-input{font-family:'Nunito',sans-serif;font-size:1.2rem;font-weight:700;padding:16px 24px;border-radius:10px;border:2px solid #60a5fa;background:#1e3a6e;color:white;width:360px;max-width:90vw;text-align:center;outline:none;margin-bottom:8px;}
+.name-input::placeholder{color:#475569;}
+.name-input:focus{border-color:#93c5fd;}
+.name-error{color:#f87171;font-size:.88rem;font-weight:700;min-height:22px;margin-bottom:16px;}
+.name-btn{background:#2563eb;color:white;border:none;font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:900;padding:15px 50px;border-radius:10px;cursor:pointer;transition:background .2s;}
+.name-btn:hover{background:#1d4ed8;}
+
+/* HEADER */
+header{background:var(--navy);color:white;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,.3);}
+.header-inner{max-width:1100px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.site-title{font-size:1.35rem;font-weight:900;letter-spacing:-.02em;}
+.site-title span{color:#60a5fa;}
+.score-badge{background:#60a5fa22;border:1px solid #60a5fa55;border-radius:999px;padding:6px 18px;font-size:.9rem;font-weight:700;color:#93c5fd;}
+
+/* NAV */
+.passage-nav{background:#253258;display:flex;overflow-x:auto;scrollbar-width:none;border-bottom:2px solid #60a5fa33;}
+.passage-nav::-webkit-scrollbar{display:none;}
+.passage-nav button{background:none;border:none;color:#93c5fd;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;padding:10px 18px;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s;flex-shrink:0;}
+.passage-nav button:hover{color:white;background:rgba(255,255,255,.05);}
+.passage-nav button.active{color:white;border-bottom-color:#60a5fa;background:rgba(96,165,250,.1);}
+
+/* TTS BAR */
+.tts-bar{background:#1e3a6e;border-bottom:1px solid #2d4f8a;padding:8px 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.tts-label{color:#93c5fd;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tts-btn{background:#2563eb;color:white;border:none;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:800;padding:6px 13px;border-radius:6px;cursor:pointer;transition:background .15s;}
+.tts-btn:hover{background:#1d4ed8;}
+.tts-btn.stop{background:#dc2626;}
+.tts-btn.stop:hover{background:#b91c1c;}
+.tts-status{color:#60a5fa;font-size:.78rem;font-weight:700;font-style:italic;}
+
+/* MAIN */
+main{max-width:1100px;margin:0 auto;padding:20px 20px 60px;}
+.progress-label{font-size:.78rem;font-weight:800;color:var(--gray);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;}
+.progress-bar{height:8px;background:var(--border);border-radius:999px;overflow:hidden;margin-bottom:20px;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),#60a5fa);border-radius:999px;transition:width .5s ease;width:0%;}
+
+/* PASSAGE PANEL */
+.passage-panel{display:none;}
+.passage-panel.active{display:block;}
+.passage-header{margin-bottom:14px;}
+.passage-tag{display:inline-block;background:var(--blue);color:white;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:4px;margin-bottom:6px;}
+.passage-title{font-family:'Merriweather',serif;font-size:1.15rem;font-weight:700;margin-bottom:2px;}
+.passage-author{font-size:.88rem;color:var(--gray);}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;}
+@media(max-width:750px){.layout{grid-template-columns:1fr;}}
+
+/* PASSAGE BOX */
+.passage-col{position:sticky;top:135px;}
+.passage-box{background:var(--passage-bg);border:1px solid #c7d7fb;border-radius:0 0 12px 12px;padding:22px 24px;font-family:'Merriweather',serif;font-size:.88rem;line-height:1.9;max-height:calc(100vh - 230px);overflow-y:auto;}
+.passage-box p{margin-bottom:12px;}
+.passage-box p:last-child{margin-bottom:0;}
+.passage-box .section-head{font-weight:700;margin-top:16px;}
+.passage-box .footnote{font-size:.75rem;color:var(--gray);margin-top:12px;}
+.passage-box .click-word{font-style:italic;font-size:1.05rem;}
+.passage-box .copyright{font-size:.72rem;color:var(--gray);border-top:1px solid #c7d7fb;margin-top:16px;padding-top:10px;}
+.passage-read-btn{width:100%;background:#1e3a6e;color:#93c5fd;border:1px solid #2d4f8a;border-bottom:none;border-radius:12px 12px 0 0;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:800;padding:10px;cursor:pointer;transition:background .15s;}
+.passage-read-btn:hover{background:#253258;color:white;}
+
+/* QUESTIONS */
+.questions-box{display:flex;flex-direction:column;gap:18px;}
+.question-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:18px;}
+.q-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;}
+.q-num{background:var(--navy);color:white;font-weight:900;font-size:.85rem;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.q-stem{font-size:.9rem;font-weight:700;line-height:1.5;flex:1;}
+.q-read-btn{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:6px;font-size:1rem;width:32px;height:32px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .15s;padding:0;}
+.q-read-btn:hover{background:#bfdbfe;}
+.part-label{display:inline-block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--blue);background:var(--sky);padding:2px 8px;border-radius:4px;margin:8px 0 6px;}
+.part-stem{font-size:.87rem;font-weight:700;margin-bottom:10px;line-height:1.5;}
+.choices{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.choice-btn{width:100%;text-align:left;background:var(--light);border:1.5px solid var(--border);border-radius:8px;padding:9px 13px;font-family:'Nunito',sans-serif;font-size:.84rem;font-weight:600;color:var(--navy);cursor:pointer;display:flex;align-items:flex-start;gap:9px;transition:all .15s;line-height:1.45;}
+.choice-btn:hover:not(:disabled){background:var(--sky);border-color:var(--blue);}
+.choice-btn .letter{font-weight:900;color:var(--blue);min-width:18px;flex-shrink:0;}
+.choice-btn.correct{background:var(--green-bg);border-color:var(--green);color:#14532d;}
+.choice-btn.correct .letter{color:var(--green);}
+.choice-btn.wrong{background:var(--red-bg);border-color:var(--red);color:#7f1d1d;}
+.choice-btn.wrong .letter{color:var(--red);}
+.choice-btn:disabled{cursor:default;}
+.feedback{margin-top:10px;font-size:.82rem;font-weight:700;padding:8px 12px;border-radius:8px;display:none;}
+.feedback.show{display:block;}
+.feedback.correct{background:var(--green-bg);color:var(--green);}
+.feedback.wrong{background:var(--red-bg);color:var(--red);}
+
+/* FINAL */
+.final-results{display:none;text-align:center;padding:40px 20px 60px;max-width:900px;margin:0 auto;}
+.final-results.show{display:block;}
+.final-name{font-size:1.1rem;color:var(--gray);margin-bottom:6px;font-weight:700;}
+.final-big{font-size:5rem;font-weight:900;color:var(--navy);line-height:1;}
+.final-label{font-size:1.15rem;color:var(--gray);margin:8px 0 16px;}
+.final-msg{font-size:1.2rem;font-weight:700;margin-bottom:12px;}
+.submit-status{font-size:.95rem;font-weight:700;color:var(--green);margin-bottom:24px;min-height:24px;}
+.results-table{width:100%;border-collapse:collapse;text-align:left;font-size:.88rem;margin-bottom:28px;}
+.results-table th{background:var(--navy);color:white;padding:10px 14px;font-weight:800;}
+.results-table td{padding:9px 14px;border-bottom:1px solid var(--border);}
+.results-table tr:nth-child(even) td{background:var(--light);}
+.tag-correct{color:var(--green);font-weight:900;}
+.tag-wrong{color:var(--red);font-weight:900;}
+.btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-restart{background:var(--navy);color:white;border:none;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;padding:14px 36px;border-radius:10px;cursor:pointer;}
+.btn-restart:hover{background:#253258;}
+.btn-print{background:var(--blue);color:white;border:none;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;padding:14px 36px;border-radius:10px;cursor:pointer;}
+.btn-print:hover{background:#1d4ed8;}
+
+@media print{header,.tts-bar,.passage-nav,.progress-bar,.progress-label,.btn-row,.passage-read-btn,.q-read-btn{display:none!important;}.final-results{display:block!important;}.passage-panel{display:none!important;}}
+</style>
+</head>
+<body>
+
+<iframe name="hidden_iframe" style="display:none;"></iframe>
+
+<div class="cover-page" id="coverPage">
+  <div class="cover-stars">&#x1F4D6; &#x2B50; &#x1F4D6;</div>
+  <div class="cover-title">SBAC Reading Review</div>
+  <div class="cover-sub">&#x2014; Inferences &#x2014;</div>
+  <button class="cover-btn" onclick="showNameScreen()">&#x25B6;&nbsp; Start</button>
+</div>
+
+<div class="name-screen hidden" id="nameScreen">
+  <div class="cover-stars">&#x270F;&#xFE0F;</div>
+  <div class="name-title">What is your name?</div>
+  <div class="name-sub">Type your full name before you begin.</div>
+  <input class="name-input" id="nameInput" type="text" placeholder="First and Last Name" autocomplete="off"/>
+  <div class="name-error" id="nameError">&nbsp;</div>
+  <button class="name-btn" onclick="startReview()">Begin Review &#x2192;</button>
+</div>
+
+<div id="appShell" style="display:none;">
+<header>
+  <div class="header-inner">
+    <div class="site-title">SBAC Reading Review <span>&#x2013; Inferences</span></div>
+    <div class="score-badge" id="scoreBadge">Score: 0 / 0</div>
+  </div>
+  <nav class="passage-nav" id="passageNav"></nav>
+  <div class="tts-bar">
+    <span class="tts-label">&#x1F50A; Read Aloud:</span>
+    <button class="tts-btn" onclick="readAll()">&#x25B6; Read All</button>
+    <button class="tts-btn" onclick="readQuestions()">&#x2753; All Questions</button>
+    <button class="tts-btn stop" onclick="stopReading()">&#x23F9; Stop</button>
+    <span class="tts-status" id="ttsStatus"></span>
+  </div>
+</header>
+<main>
+  <div class="progress-label">Overall Progress</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="passagePanels"></div>
+  <div class="final-results" id="finalResults">
+    <div class="final-name" id="finalName"></div>
+    <div class="final-big" id="finalScore"></div>
+    <div class="final-label" id="finalLabel"></div>
+    <div class="final-msg" id="finalMsg"></div>
+    <div class="submit-status" id="submitStatus"></div>
+    <table class="results-table" id="resultsTable"></table>
+    <div class="btn-row">
+      <button class="btn-print" onclick="window.print()">&#x1F5A8; Print Results</button>
+      <button class="btn-restart" onclick="restartAll()">&#x1F504; Start Over</button>
+    </div>
+  </div>
+</main>
+</div>
+
+<script>
+
+
+
+const passages = [
+  {
+    tag: "Passage 1 · Informational",
+    title: "from Rachel Carson and Her Book That Changed the World",
+    author: "by Laurie Lawlor",
+    text: `<p>Early one morning in May 1922, young Rachel Carson discovered a secret place deep in the woods fragrant with pine needles. "<em>Witchity-witchity-witchity!</em>" called a yellowthroat.</p>
+<p>Rachel followed the chanting wild bird up and down the hills along the Allegheny River, not stopping until she came upon its nest hidden in a bush. Closer, closer she crept.</p>
+<p class="click-word"><em>Click!</em></p>
+<p>Her camera captured four eggs mottled white and brown, precious as shining fruit.</p>
+<p>All her life, Rachel Carson was curious and determined. She was born on May 27, 1907, on the outskirts of Springdale, a small town in Pennsylvania. Since her brother and sister were much older and neighborhood children seldom came to visit, Rachel often went on her own to explore her family's sixty-five acres of woods, orchards, and fields.</p>
+<p>Her doting mother also loved nature. She taught Rachel to skywatch on starry nights and how to recognize the haunting melody of wood thrush. Rachel read constantly and worked hard in school. When she was only eleven, her story about a brave pilot won a prize and was published in <em>St. Nicholas Magazine</em> for children. She decided to become a writer.</p>
+<p>Times were tough. Rachel's father struggled to make a living as a traveling salesman. Her fiercely proud mother doubled her number of piano students and sold apples, chickens—even the family china—to help send Rachel to Pennsylvania College for Women in Pittsburgh. Academic scholarship in hand, Rachel climbed into a borrowed Model T and said good-bye.</p>
+<p>College was a new world for shy Rachel. While she enjoyed her writing classes, she felt awkward at parties and dances. When everyone else dressed up . . . , Rachel slipped away to study stuffed birds at the nearby natural history museum.</p>
+<p>The summer when Rachel came home after her first year at college, a putrid smell lingered everywhere. Smoke clouded the sky. Pollution floated on the river. The woods were being cut down for factories and houses. All this filled her with sadness and worries about the environment and her own future.</p>
+<p>When she returned to college, a biology class taught by lively Miss Mary Scott Skinker changed her life. At a time when few women pursued careers in science, Rachel made up her mind to become a biologist.</p>
+<p>Sure enough, she won a full scholarship to Johns Hopkins University. The summer before she started graduate school, twenty-two-year-old Rachel traveled to Woods Hole, Massachusetts, to study at a marine biology lab.</p>
+<p>When she stood beside the Atlantic Ocean for the first time, she lost her heart to a world of restless water and sky. Surf crashed. Seabirds called. A briny smell filled the air. Mysterious creatures scuttled in tide pools. And what life hid deep below the ocean waves?</p>`,
+    questions: [
+      {
+        stem: "Which sentence from the passage best supports the idea that Rachel Carson was different from her peers?",
+        choices: [
+          "Early one morning in May 1922, young Rachel Carson discovered a secret place deep in the woods fragrant with pine needles.",
+          "Her fiercely proud mother doubled her number of piano students and sold apples, chickens—even the family china—to help send Rachel to Pennsylvania College for Women.",
+          "When everyone else dressed up . . . , Rachel slipped away to study stuffed birds at the nearby natural history museum.",
+          "The summer before she started graduate school, twenty-two-year-old Rachel traveled to Woods Hole, Massachusetts, to study at a marine biology lab."
+        ],
+        correct: 2,
+        explanation: "Choice C directly compares Rachel to her peers ('everyone else') and shows she did something different—slipping away to study birds instead of socializing."
+      },
+      {
+        stem: "Which sentence best tells the main idea of the passage?",
+        choices: [
+          "Rachel Carson worked hard to reach her childhood goal.",
+          "Rachel Carson learned important lessons from her mother.",
+          "Rachel Carson tried several careers before choosing biology.",
+          "Rachel Carson followed her love of the outdoors throughout her life."
+        ],
+        correct: 3,
+        explanation: "The whole passage traces Rachel's lifelong love of nature—from exploring woods as a child to studying the ocean as an adult. Choice D captures this best."
+      }
+    ]
+  },
+  {
+    tag: "Passage 2 · Informational",
+    title: "Searching for Monkeys",
+    author: "A scientist journeys into the world of the golden lion tamarin · by Linda Zajac",
+    text: `<p>On a hot, sticky day, Dr. Carlos Ruiz-Miranda treks through a forest in Brazil. The little monkeys he's studying are hiding here. His radio receiver is beeping, a sign that the animals are nearby. The monkeys are wearing collars that send signals to his receiver. Without these collars, finding the monkeys is nearly impossible.</p>
+<p>Heavy rainfall has left a deep swamp in Ruiz-Miranda's path. He wades through it. Murky water swirls around his waist. Beyond the swamp, the beeps are louder. The monkeys are close! Finally, in the tangled vines, Ruiz-Miranda spots a flash of brilliant copper fur, the color of freshly minted pennies. Smaller than a guinea pig, each of the animals has a lionlike mane and a long tail that dangles like a loose rope. At last, Ruiz-Miranda has found the monkeys he's been searching for—golden lion tamarins.</p>
+<p>Ruiz-Miranda is a scientist and professor at a university in Brazil. He and the other scientists he works with want to learn everything they can about these endangered monkeys to help them survive in their shrinking forest.</p>
+<p class="section-head">The Search Begins</p>
+<p>"I get up at 4:30 a.m. to prepare the field equipment and test everything," says Ruiz-Miranda. "If there is no signal, I walk around until I find one. That can take hours," he says.</p>
+<p>Working in the forest can be a challenge. "Sometimes I get lost and have to figure out a way back," he continues. "Sometimes there are snakes or wasps. Sometimes I get stung. I take things with me to deal with these problems, but mostly I have to endure them."</p>
+<p>"All the pains tend to disappear when I'm collecting data," says Ruiz-Miranda. "At the end of the day, when I'm back at the station, I notice for the first time the spines stuck in my arms and the cuts in my legs."</p>
+<p class="section-head">How Tamarins Live</p>
+<p>Ruiz-Miranda wants golden lion tamarins to thrive in the forest. The scientists learned that, in the wild, adults teach their young how to search under leaves and in narrow cracks in trees to find insects to eat. "It takes zoo-born animals a long time to learn the wild foods," Ruiz-Miranda says. "But their wild-born young learn quickly, and that is the key to the success of the project—the future generation."</p>
+<p class="section-head">New Hope for the Golden Lion Tamarin</p>
+<p>This monkey species is endangered. In the 1970s, its forest home shrank as the city of Rio de Janeiro grew. The tamarins were also caught and sold as pets. Soon, fewer than 600 of the monkeys survived. Brazil set aside forest areas, passed laws to protect the animals, and bred them in zoos. Today, more than 1,700 golden lion tamarins live in the forest. "Saving them from extinction is a reality," says Dr. Carlos Ruiz-Miranda.</p>`,
+    questions: [
+      {
+        parts: true,
+        partA: {
+          stem: "Which of these inferences about the author's point of view is supported by the passage?",
+          choices: [
+            "Golden lion tamarins are happy around humans.",
+            "The future is looking better for golden lion tamarins.",
+            "Morning is the best time to look for golden lion tamarins.",
+            "Finding golden lion tamarins is easy because of their markings."
+          ],
+          correct: 1,
+          explanation: "The author emphasizes the population growing from 600 to 1,700 and quotes Ruiz-Miranda saying 'Saving them from extinction is a reality,' showing optimism about the future."
+        },
+        partB: {
+          stem: "Which detail from the passage best supports your answer in Part A?",
+          choices: [
+            "The monkeys are close! Finally, in the tangled vines, Ruiz-Miranda spots a flash of brilliant copper fur.",
+            "'I get up at 4:30 a.m. to prepare the field equipment and test everything,' says Ruiz-Miranda.",
+            "The tamarins were also caught and sold as pets.",
+            "Today, more than 1,700 golden lion tamarins live in the forest. 'Saving them from extinction is a reality,' says Dr. Carlos Ruiz-Miranda."
+          ],
+          correct: 3,
+          explanation: "This detail directly supports the optimistic view—the population has grown and the scientist says extinction has been avoided."
+        }
+      },
+      {
+        parts: true,
+        partA: {
+          stem: "Which sentence best describes the main idea of the passage?",
+          choices: [
+            "Golden lion tamarins are good at hiding.",
+            "Golden lion tamarins live in dangerous areas.",
+            "Brazil has saved golden lion tamarins by keeping them in zoos.",
+            "Scientists are trying to help golden lion tamarins survive in the wild."
+          ],
+          correct: 3,
+          explanation: "The whole passage focuses on Ruiz-Miranda's scientific work to help tamarins survive in the wild—the main idea is the conservation effort."
+        },
+        partB: {
+          stem: "Which detail from the passage best supports your answer in Part A?",
+          choices: [
+            "He and the other scientists he works with want to learn everything they can about these endangered monkeys to help them survive in their shrinking forest.",
+            "'If there is no signal, I walk around until I find one. That can take hours,' he says.",
+            "'Sometimes I get lost and have to figure out a way back,' he continues.",
+            "Soon, fewer than 600 of the monkeys survived. Brazil set aside forest areas, passed laws to protect the animals, and bred them in zoos."
+          ],
+          correct: 0,
+          explanation: "This sentence directly states the scientists' goal: to help tamarins survive in the wild."
+        }
+      },
+      {
+        stem: "The reader can infer that golden lion tamarins got their name because they resemble another animal. Which detail from the passage best supports this inference?",
+        choices: [
+          "Finally, in the tangled vines, Ruiz-Miranda spots a flash of brilliant copper fur, the color of freshly minted pennies.",
+          "Smaller than a guinea pig, each of the animals has a lionlike mane and a long tail that dangles like a loose rope.",
+          "As the silken-haired creatures scurry across branches, Ruiz-Miranda follows them and jots down notes.",
+          "The scientists learned that, in the wild, adults teach their young how to search under leaves and in narrow cracks in trees to find insects to eat."
+        ],
+        correct: 1,
+        explanation: "Choice B mentions a 'lionlike mane,' directly supporting the inference that they were named after lions because of their appearance."
+      },
+      {
+        parts: true,
+        partA: {
+          stem: "Which sentence best describes the main problem in the passage?",
+          choices: [
+            "Tamarins nearly became extinct in the past.",
+            "Scientists were often injured while studying tamarins.",
+            "Special tools were needed to find tamarins in the forest.",
+            "Areas where the tamarins live were often blocked by flooding."
+          ],
+          correct: 0,
+          explanation: "The central problem is that golden lion tamarins are endangered and nearly went extinct—the whole passage addresses this conservation crisis."
+        },
+        partB: {
+          stem: "Which detail from the passage best supports your answer in Part A?",
+          choices: [
+            "The little monkeys he's studying are hiding here. His radio receiver is beeping, a sign that the animals are nearby.",
+            "Heavy rainfall has left a deep swamp in Ruiz-Miranda's path.",
+            "'Sometimes there are snakes or wasps. Sometimes I get stung.'",
+            "This monkey species is endangered."
+          ],
+          correct: 3,
+          explanation: "'This monkey species is endangered' directly states the main problem the passage is addressing."
+        }
+      },
+      {
+        parts: true,
+        partA: {
+          stem: "Which of these inferences about Ruiz-Miranda is supported by the passage?",
+          choices: [
+            "Ruiz-Miranda is a good swimmer.",
+            "Ruiz-Miranda does not give up easily.",
+            "Ruiz-Miranda prefers to spend his time working in a lab.",
+            "Ruiz-Miranda has had to overcome his fear of the jungle."
+          ],
+          correct: 1,
+          explanation: "Evidence throughout the passage—wading through swamps, walking for hours, enduring snakes and stings—shows Ruiz-Miranda never gives up."
+        },
+        partB: {
+          stem: "Which sentence from the passage best supports your answer in Part A?",
+          choices: [
+            "Murky water swirls around his waist.",
+            "A day in the forest starts at the research station, an old farmhouse.",
+            "'If there is no signal, I walk around until I find one. That can take hours,' he says.",
+            "If Ruiz-Miranda has no insect repellent, he spreads mud on his neck and any other exposed areas."
+          ],
+          correct: 2,
+          explanation: "Walking for hours looking for a signal shows persistence—he doesn't stop even when the task is difficult."
+        }
+      }
+    ]
+  },
+  {
+    tag: "Passage 3 · Informational",
+    title: "from Albert Einstein and Relativity for Kids",
+    author: "by Jerome Pohlen",
+    text: `<p class="section-head">Thought Experiments</p>
+<p>"Imagination is more important than knowledge. Knowledge is limited. Imagination encircles the world." —Einstein</p>
+<p>Imagine that you were to walk into a brick wall. Would it hurt? Of course! Would you need to walk into a brick wall to convince yourself of this? No, you could figure it out without actually having to do it. You know that brick walls are hard. You know that if something hits you in the nose it hurts. So, if your nose were to hit a very hard brick wall, it would hurt.</p>
+<p>Congratulations—you've just performed a <em>thought experiment</em>. Albert Einstein was famous for using thought experiments to develop his theories and to explain his ideas to other people. He would imagine trains traveling at nearly the speed of light (this was long before rockets) and elevators falling down bottomless shafts or traveling through space. What would people on those trains and in those elevators experience? . . .</p>
+<p class="section-head">The Patent Clerk</p>
+<p>Tucked away on the third floor of the Postal and Telegraph Building near the train station in Bern, Switzerland, Albert Einstein scribbled away. "Whenever anyone would come by, I would cram my notes into my desk drawer and pretend to work on my office work," he later admitted. "I was able to do a full day's work in only two or three hours. The remaining part of the day I would work on my own ideas."</p>
+<p>What sort of ideas? Everything from the size of atoms to the structure of the universe. Just a few years earlier he had graduated from college where he had studied physics,<sup>1</sup> but nobody would hire him. Einstein had worked as a substitute teacher and a tutor, but those jobs barely paid his bills. He got this position at the Swiss Patent Office only because his friend's father had put in a good word for him.</p>
+<p>So Einstein scribbled away when nobody was looking, and when he got home he wrote even more. He bounced his ideas off his wife, who was a talented mathematician, and a few of his friends and coworkers, but ultimately he was an <em>Einspänner</em>—a one-horse cart. A loner.</p>
+<p>But this one-horse cart, with little more than the force of his gifted mind, would pull physics into the modern era and beyond.</p>
+<p class="footnote"><sup>1</sup>physics: the science of matter and energy</p>`,
+    questions: [
+      {
+        stem: "Einstein was productive at his job. Which detail from the passage best supports this conclusion?",
+        choices: [
+          "Albert Einstein was famous for using thought experiments . . .",
+          "'Whenever anyone would come by, I would cram my notes into my desk drawer . . .'",
+          "'I was able to do a full day's work in only two or three hours.'",
+          "So Einstein scribbled away when nobody was looking . . ."
+        ],
+        correct: 2,
+        explanation: "Choice C shows Einstein could complete a full day's official work in only 2–3 hours, which directly supports the idea that he was highly productive."
+      },
+      {
+        stem: "Which sentence best tells the main idea of the passage?",
+        choices: [
+          "Einstein and his wife worked closely together.",
+          "Einstein was never able to do the work he wanted.",
+          "Einstein worked to uncover unique ideas in science.",
+          "Einstein worked on many different kinds of experiments."
+        ],
+        correct: 2,
+        explanation: "The passage describes Einstein's thought experiments and his secret scientific work at the patent office—his driving purpose was uncovering unique scientific ideas."
+      },
+      {
+        stem: "Einstein's ideas were very original for the time. Which sentence from the passage best supports this conclusion?",
+        choices: [
+          "No, you could figure it out without actually having to do it.",
+          "Congratulations—you've just performed a thought experiment.",
+          "He would imagine trains traveling at nearly the speed of light (this was long before rockets) and elevators falling down bottomless shafts or traveling through space.",
+          "So Einstein scribbled away when nobody was looking, and when he got home he wrote even more."
+        ],
+        correct: 2,
+        explanation: "Choice C shows Einstein imagining scenarios no one had thought of before—trains at light speed and falling elevators—ideas that were completely original and ahead of their time ('this was long before rockets')."
+      }
+    ]
+  },
+  {
+    tag: "Passage 4 · Literary",
+    title: "Ollie's Cake Catastrophe",
+    author: "by Lissa Rovetch",
+    text: `<p>Whatever you do, don't do what I did! I wanted to make my mom the best birthday cake ever. There was just one teensy little complication: I didn't know how to bake.</p>
+<p>"No problem," said Ollie. "We can make a cake at my house!"</p>
+<p>"You know how to make cakes?" I asked.</p>
+<p>"Of course," said Ollie. "I know how to make tons of stuff! I watch those cooking shows with my grandmother all the time."</p>
+<p>"Wow," I said. "I can't believe I never knew this about you!"</p>
+<p>I was beyond excited. I could hardly wait to surprise my mother with a magnificent cake. And Ollie really <em>did</em> seem to know what he was doing—at first, that is.</p>
+<p>He made sure we washed our hands and cleared off our workspace and all that good stuff. Then he got out the flour and sugar and butter and eggs.</p>
+<p>"Are you positive this is OK with your grandmother?" I asked.</p>
+<p>"Totally!" Ollie said, cracking open a bunch of eggs. "She loves it when I help out in the kitchen—just as long as she's around for the actual cooking part."</p>
+<p>So there was Ollie throwing all these things into a bowl, and there was me, super-psyched to be making a real homemade cake for my mom. But then . . . there was Ollie, throwing all these <em>other</em> ingredients into the bowl, and there was me, getting a little less excited and a lot more nervous all the time.</p>
+<p>"Um, shouldn't we be following some kind of recipe?" I asked.</p>
+<p>"No way!" Ollie said, dumping a bag of marshmallows into the mixture. "Great chefs never use recipes."</p>
+<p>"They don't?" I asked.</p>
+<p>"Of course not," Ollie said as he added grapes, almonds, maple syrup, chocolate powder, cereal, popcorn, raisins, applesauce, peanut butter, and all kinds of other weird things to the batter. "Great taste comes from great creativity!"</p>
+<p>"Um, yeah, creativity's cool and everything," I said, "but I seriously don't know about this!"</p>
+<p>"Trust me, Arizona," said Ollie. "I know what I'm doing!"</p>
+<p>And that's when I knew that my cake was in major trouble.</p>
+<p>Don't get me wrong. Ollie's a fantastic guy and an amazing friend. But I've known him since beyond forever, and if there's one thing I've learned, it's this: When he says, "Trust me—I know what I'm doing!" it pretty much <em>always</em> means something bad is about to happen.</p>
+<p>And it did.</p>
+<p>Ollie held the electric mixer over the bowl and turned it on high speed.</p>
+      <p>AHHHHHH! we screamed together as Ollie's "creative" cake batter spattered everywhere imaginable, including all over both of us!</p>
+<p>For a second, I was mad and sad and everything in between. But as soon as I stopped and saw how ridiculous Ollie and I looked, completely covered in his cake concoction, I started laughing uncontrollably.</p>
+<p>It ended up taking us at least five times longer to clean up the mess than it had taken us to make the batter. And after we thought we'd wiped up every last drop, Ollie's grandmother made us clean even more, after reminding Ollie never to use the electric mixer when she wasn't helping him.</p>
+<p>Luckily, she helped us make a whole new cake—<em>with</em> a recipe. It was chocolate on the inside and vanilla on the outside, with "Happy Birthday Best Mom Ever" written in purple frosting.</p>
+<p>"Oh, I absolutely love it!" my mother said. "What a thoughtful and creative gift!"</p>
+<p>"Well, you know what they say," I said, winking at Ollie. "Great taste comes from great creativity!"</p>
+<p class="copyright">"Ollie's Cake Catastrophe" by Lissa Rovetch, from <em>Highlights</em>. Copyright © 2008 by Highlights for Children.</p>`,
+    questions: [
+      {
+        stem: "Which detail from the passage best supports the conclusion that Arizona knows Ollie well?",
+        choices: [
+          "There was just one teensy little complication: I didn't know how to bake. / 'No problem,' said Ollie. 'We can make a cake at my house!'",
+          "'Are you positive this is OK with your grandmother?' I asked. / 'Totally!' Ollie said, cracking open a bunch of eggs.",
+          "'Great chefs never use recipes.' / 'They don't?' I asked.",
+          ". . . one thing I've learned, it's this: When he says, 'Trust me—I know what I'm doing!' it pretty much always means something bad is about to happen."
+        ],
+        correct: 3,
+        explanation: "Choice D shows that Arizona has learned from past experience with Ollie—she knows his specific pattern of behavior, which proves she knows him very well."
+      },
+      {
+        parts: true,
+        partA: {
+          stem: "Which sentence best describes the theme of the passage?",
+          choices: [
+            "It is important to always help your friends.",
+            "It is important to give gifts to people you love.",
+            "It is important to share new hobbies with friends and family.",
+            "It is important to have proper help when trying something new."
+          ],
+          correct: 3,
+          explanation: "The story's lesson is that Ollie tries to bake without proper guidance and causes a mess—only with his grandmother's help do they succeed. Proper help matters when learning something new."
+        },
+        partB: {
+          stem: "Which detail from the passage best supports your answer in Part A?",
+          choices: [
+            "'Of course,' said Ollie. 'I know how to make tons of stuff! I watch those cooking shows with my grandmother all the time.'",
+            "Don't get me wrong. Ollie's a fantastic guy and an amazing friend.",
+            "And after we thought we'd wiped up every last drop, Ollie's grandmother made us clean even more, after reminding Ollie never to use the electric mixer when she wasn't helping him.",
+            "'Oh, I absolutely love it!' my mother said. 'What a thoughtful and creative gift!'"
+          ],
+          correct: 2,
+          explanation: "The grandmother's instruction—never use the mixer without her help—directly supports the theme that proper guidance is needed when trying something new."
+        }
+      },
+      {
+        parts: true,
+        partA: {
+          stem: "What did the author most likely mean by including quotation marks around the word 'creative' in this sentence: AHHHHHH! we screamed together as Ollie's 'creative' cake batter spattered everywhere imaginable...",
+          choices: [
+            "to imply that Ollie is much smarter than Arizona",
+            "to suggest Arizona and Ollie disagree about how to have fun",
+            "to hint that the cake was made without following a trusted plan",
+            "to show the kitchen lacks the equipment needed to bake a cake"
+          ],
+          correct: 2,
+          explanation: "The quotation marks show sarcasm—the batter wasn't really creatively good, it was a chaotic mess made without a recipe or proper plan."
+        },
+        partB: {
+          stem: "Which detail from the passage best supports your answer in Part A?",
+          choices: [
+            "'I know how to make tons of stuff! I watch those cooking shows with my grandmother all the time.'",
+            "'Wow,' I said. 'I can't believe I never knew this about you!'",
+            "'Of course not,' Ollie said as he added grapes, almonds, maple syrup, chocolate powder, cereal, popcorn, raisins, applesauce, peanut butter, and all kinds of other weird things to the batter.",
+            "It was chocolate on the inside and vanilla on the outside, with 'Happy Birthday Best Mom Ever' written in purple frosting."
+          ],
+          correct: 2,
+          explanation: "Ollie adding random, bizarre ingredients (grapes, popcorn, marshmallows, etc.) with no recipe shows the batter was chaotically made without a trusted plan."
+        }
+      },
+      {
+        parts: true,
+        partA: {
+          stem: "Which of these inferences about Arizona is supported by the passage?",
+          choices: [
+            "Arizona thinks Ollie should apologize to her.",
+            "Arizona worries about the time she and Ollie have wasted.",
+            "Arizona is afraid she will ruin the cake if she interrupts Ollie.",
+            "Arizona is more concerned about following the rules than Ollie is."
+          ],
+          correct: 3,
+          explanation: "Arizona repeatedly questions whether they should use a recipe and worries as Ollie adds random ingredients—she follows the rules more than Ollie does."
+        },
+        partB: {
+          stem: "Which sentence from the passage best supports your answer in Part A?",
+          choices: [
+            "And Ollie really did seem to know what he was doing—at first, that is.",
+            "'Are you positive this is OK with your grandmother?' I asked.",
+            "For a second, I was mad and sad and everything in between.",
+            "Luckily, she helped us make a whole new cake—with a recipe."
+          ],
+          correct: 1,
+          explanation: "Arizona asking if the grandmother approves shows she's concerned about doing things the right way—more rule-conscious than Ollie."
+        }
+      }
+    ]
+  },
+  {
+    tag: "Passage 5 · Literary",
+    title: "Lost & Found",
+    author: "by Jennifer L. Holm",
+    text: `<p>I had been sitting in the nurse's office because of a spider.</p>
+<p>I'd left my jacket in the Lost and Found box. I'd left it on the playground at recess the day before. The Lost and Found box was stuffed to the brim with random stuff: dirty zip-up fleeces, stray socks, knit caps, empty lunch boxes. And it had smelled weird—like mold and stale peanut butter crackers and maybe rotten milk.</p>
+<p>As I'd rooted around looking for my jacket, I'd felt a sting. When I'd looked down, a little spider ran across my hand. A moment later, my hand had started throbbing and the underside of my wrist had swollen up to the size of a golf ball. My teacher had taken one look at it and sent me to the nurse's office.</p>
+<p>I'd never imagined myself sitting in the nurse's office because of a spider bite. Then again, I'd never imagined myself doing a lot of things. Like living in Atlanta.</p>
+<p>Everything was different here. The houses. The streets. Even the school. Instead of an outdoor lunch court, there was a stuffy cafeteria. But the biggest difference was the cold. It was November and freezing. I would still be wearing shorts if I was back in California.</p>
+<p>I missed my old home. I missed the sun. Most of all, I missed having a friend. . . .</p>
+<p>Moving to Atlanta was a big opportunity for my dad, but all it had been for me was lonely.</p>
+<p>"How are you feeling now?" the nurse asked the girl sitting next to me. The girl was breathing into one of those asthma inhalers.</p>
+<p>The girl shrugged.</p>
+<p>"Why don't you sit there and we'll see how you're breathing in a few minutes," she told the girl and then turned to me. The nurse was wearing a shirt with kittens on it.</p>
+<p>"What can I do for you?" she asked.</p>
+<p>I held out my hand.</p>
+<p>"Oh dear," she said. "Did you fall?"</p>
+<p>"A spider bit me."</p>
+<p>"Hmm," she said. "Let me go get some ice for it. That will help."</p>
+<p>She disappeared out the door and the room was silent.</p>
+<p>"That's so cool," the girl said.</p>
+<p>"What?"</p>
+<p>"That you got bit by a spider!" Her nose wrinkled. "Was it a tarantula?"</p>
+<p>I shook my head. "Tarantulas don't live around here. They like the desert."</p>
+<p>"How do you know?"</p>
+<p>"I used to live in California. We had a tarantula in our garage."</p>
+<p>Her eyes bugged open. "Really? Did it ever bite you?"</p>
+<p>"Tarantulas are big and furry and don't like people. They're scaredy-cats."</p>
+<p>"I like spiders," she admitted.</p>
+<p>"Me too," I said. "The ones that don't bite, I mean."</p>
+<p>"Yeah," she said with a laugh.</p>
+<p>"My dad took pictures of Old Spikey. He was the tarantula who lived in our garage."</p>
+<p>"Really? Can I see them sometime?"</p>
+<p>"Sure," I said.</p>
+<p>She smiled at me. "I'm Meera."</p>
+<p>"I'm Nevy," I said.</p>
+<p>As Meera asked me more questions about tarantulas, I felt warm for the first time since moving here. Because while I had lost my jacket, I had found something more important.</p>
+<p>A friend.</p>
+<p class="copyright">Excerpt from "Lost & Found" by Jennifer L. Holm, from <em>The Creativity Project</em>. Copyright © 2018 by Jennifer L. Holm.</p>`,
+    questions: [
+      {
+        parts: true,
+        partA: {
+          stem: "What inference can be made about Nevy after her talk with Meera in the nurse's office?",
+          choices: [
+            "She wishes that she had a tarantula in her new home.",
+            "She feels unsure about what else to say to her new friend.",
+            "She feels hopeful for the first time about living in a new place.",
+            "She wishes it were warmer outside but is glad that she found her jacket."
+          ],
+          correct: 2,
+          explanation: "Nevy says she 'felt warm for the first time since moving here' after talking with Meera—she finally feels hopeful about her new life in Atlanta."
+        },
+        partB: {
+          stem: "Which sentence from the passage best supports your answer in Part A?",
+          choices: [
+            "My teacher had taken one look at it and sent me to the nurse's office.",
+            "Moving to Atlanta was a big opportunity for my dad, but all it had been for me was lonely.",
+            "She disappeared out the door and the room was silent.",
+            "As Meera asked me more questions about tarantulas, I felt warm for the first time since moving here."
+          ],
+          correct: 3,
+          explanation: "This sentence directly states Nevy felt warm 'for the first time since moving here,' confirming she now feels hopeful about her new place."
+        }
+      },
+      {
+        stem: "Which detail from the passage best supports the idea that Meera is curious about the tarantula that lived in Nevy's garage?",
+        choices: [
+          "'That's so cool,' the girl said.",
+          "'I like spiders,' she admitted.",
+          "'Really? Can I see them sometime?'",
+          "She smiled at me. 'I'm Meera.'"
+        ],
+        correct: 2,
+        explanation: "Meera asking to see the photos of the tarantula is the strongest evidence of curiosity—she wants to learn more and see it for herself."
+      },
+      {
+        stem: "Read the paragraph: 'Everything was different here. The houses. The streets. Even the school. Instead of an outdoor lunch court, there was a stuffy cafeteria. But the biggest difference was the cold. It was November and freezing. I would still be wearing shorts if I was back in California.' What is the main idea of the paragraph?",
+        choices: [
+          "Nevy is unfamiliar with this new place.",
+          "Nevy likes to wear shorts in warm weather.",
+          "Nevy would rather eat lunch outside than in the cafeteria.",
+          "Nevy easily gets lost in her new neighborhood and school."
+        ],
+        correct: 0,
+        explanation: "The paragraph lists many ways Atlanta is different and unfamiliar to Nevy—the houses, streets, school, and especially the cold. The main idea is that everything feels new and different."
+      }
+    ]
+  },
+  {
+    tag: "Passage 6 · Literary",
+    title: "How Big Bear Stuck to the Sky",
+    author: "a Native American legend retold by Kathleen Muldoon",
+    text: `<p><em>Native American legends often use animals, seasons and places as characters. For example, Fisher, Lynx, Wolverine, Otter, Sun, Earth, and Sky are characters in this legend.</em></p>
+<p>Once upon a time when Earth was young, Winter ruled. Snow and ice covered mountains and rivers, fields and forests. So hard was the floor between Earth and Sky that Sun could not peek through to warm the ground.</p>
+<p>Animals that survived this harsh cold hunted to provide what little food they could for their young. A big bear, called Fisher because the magic in his tail helped him catch fish, decided it was time to bring Summer to Earth.</p>
+<p>So Fisher invited all of Earth's creatures to a meeting.</p>
+<p>"We will find a way to warm Earth," he said. "Sun will bring grass and flowers and birds. We must reach the Great Spirit and ask for help. Who will go with me to the place where Earth is closest to Sky?"</p>
+<p>Otter, Lynx, and Wolverine agreed to accompany Fisher on his journey. They traveled across frozen lakes and rivers. Icy twigs snapped as they tramped through snowy woods. They climbed hills and slid through valleys.</p>
+<p>Fisher swished his magical, stubby tail in the frigid waters and caught fish for them to eat along the way. After many days, he led them to the top of the tallest mountain on Earth, so high it almost tickled Sky.</p>
+<p>There Fisher stood on his back paws and stretched, swiping his front claws on Sky's floor. But he made only a tiny scratch. He could not break through to Sky.</p>
+<p>"Let me try," cried Otter.</p>
+<p>He jumped so high his head thumped the sky floor. Otter fell back to Earth and WHOOSH! Down the mountain he slid, riding on his belly all the way to the bottom.</p>
+<p>Next Lynx took a step back and pounced at Sky. THUNK! She hit her head so hard that she fell unconscious to the snow. Wolverine pushed her aside.</p>
+<p>"I am the strongest," he growled.</p>
+<p>Wolverine leaped against Sky's floor, once, twice, three times. Finally, he caused the tiniest of cracks to appear. He jumped again and again, widening the crack into a hole. Soon Wolverine climbed through the sky hole, followed by Fisher.</p>
+<p>All at once, birds of every color and size surrounded them. Some swooshed through Wolverine's hole and flew over Earth, spreading Sky's warmth with each flap of their wings.</p>
+<p>Soon Sun sent its rays through the hole, and Wolverine watched as snow on the mountain-top began to melt.</p>
+<p>"We must make the hole bigger," Fisher said. He twitched his magic tail. Then, using his sharp teeth, he gnawed off more pieces of the sky floor.</p>
+<p>Suddenly a band of Sky People ran toward them.</p>
+<p>"Stop, thieves," they cried, brandishing bows and arrows. "Stop stealing our warmth!"</p>
+<p>Wolverine escaped through the hole and tumbled down the mountainside back to Earth. But Fisher kept working. By the time the Sky People reached him, he'd widened the hole enough so that Sun could warm Earth for half of every year.</p>
+<p>Fisher ran from the Sky People's arrows and climbed to the top of a tall tree. But one arrow struck Fisher's tail and he began falling. Before he could hit Sky's floor, the Great Spirit, admiring Fisher's persistence, took pity on the bear. He adorned Fisher with stars, and set him in a place of honor in the sky.</p>
+<p>If you look to Sky on a starry night, you will see him there still.</p>
+<p class="footnote"><sup>*</sup>to wave or swing (something, such as a weapon) in a threatening or excited manner</p>
+<p class="copyright">"How Big Bear Stuck to the Sky" by Kathleen Muldoon, from <em>Spider</em>. Copyright © 2011 from Carus Publishing Company.</p>`,
+    questions: [
+      {
+        stem: "The reader can infer that Fisher has great courage. Which detail from the passage best supports this inference?",
+        choices: [
+          "Fisher continued his task even as he was being attacked.",
+          "Fisher used the magic in his tail to catch fish in icy waters.",
+          "Fisher used his sharp teeth to gnaw off pieces of the sky floor.",
+          "Fisher climbed to the top of a tall tree before being struck in the tail."
+        ],
+        correct: 0,
+        explanation: "Fisher kept gnawing the sky floor even while the Sky People attacked with bows and arrows—continuing under attack is the strongest evidence of courage."
+      },
+      {
+        parts: true,
+        partA: {
+          stem: "Which sentence best describes the theme of the text?",
+          choices: [
+            "It takes courage to be honest.",
+            "Kindness is the key to lasting friendships.",
+            "Strong friendships can outlast difficult times.",
+            "Making a difference takes hard work and courage."
+          ],
+          correct: 3,
+          explanation: "Fisher works tirelessly and bravely—traveling across frozen lands, fighting to break through Sky, and continuing even under attack—to bring warmth to Earth. The theme is that making a difference requires effort and courage."
+        },
+        partB: {
+          stem: "Which sentence from the passage best supports your answer in Part A?",
+          choices: [
+            "Otter, Lynx, and Wolverine agreed to accompany Fisher on his journey.",
+            "Fisher swished his magical, stubby tail in the frigid waters and caught fish for them to eat along the way.",
+            "By the time the Sky People reached him, he'd widened the hole enough so that Sun could warm Earth for half of every year.",
+            "He adorned Fisher with stars, and set him in a place of honor in the sky."
+          ],
+          correct: 2,
+          explanation: "This sentence shows Fisher's hard work paid off—he made a real difference by bringing warmth to Earth, even while being attacked, supporting the theme."
+        }
+      },
+      {
+        parts: true,
+        partA: {
+          stem: "Click on the statement that best provides a conclusion that can be drawn about an animal that went on the journey to Sky.",
+          choices: [
+            "Wolverine was the strongest of all the animals.",
+            "Wolverine was angry that the Great Spirit did not help him.",
+            "Fisher believed that his magical tail would help him escape.",
+            "Fisher put concern for his own safety aside in order to solve the problem."
+          ],
+          correct: 3,
+          explanation: "Fisher stayed and kept working on the hole even as the Sky People attacked with arrows, showing he put the mission above his own safety."
+        },
+        partB: {
+          stem: "Which sentence from the passage best supports your answer in Part A?",
+          choices: [
+            "Then, using his sharp teeth, he gnawed off more pieces of the sky floor. Suddenly a band of Sky People ran toward them.",
+            "'Stop, thieves,' they cried, brandishing bows and arrows. 'Stop stealing our warmth!'",
+            "Wolverine escaped through the hole and tumbled down the mountainside back to Earth. But Fisher kept working. By the time the Sky People reached him, he'd widened the hole enough so that Sun could warm Earth for half of every year.",
+            "Fisher ran from the Sky People's arrows and climbed to the top of a tall tree."
+          ],
+          correct: 2,
+          explanation: "The contrast—'Wolverine escaped… But Fisher kept working'—directly shows Fisher prioritizing the mission over his own safety."
+        }
+      }
+    ]
+  }
+];
+
+// ── STATE ────────────────────────────────────────────────────────
+let totalCorrect = 0;
+let totalAnswered = 0;
+const totalQuestions = passages.reduce(function(sum, p) {
+  return sum + p.questions.reduce(function(qs, q) { return qs + (q.parts ? 2 : 1); }, 0);
+}, 0);
+const answered = {};
+let studentName = '';
+
+// ── COVER / NAME ─────────────────────────────────────────────────
+function showNameScreen() {
+  document.getElementById('coverPage').classList.add('hidden');
+  document.getElementById('nameScreen').classList.remove('hidden');
+  setTimeout(function() { document.getElementById('nameInput').focus(); }, 100);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var inp = document.getElementById('nameInput');
+  if (inp) inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') startReview(); });
+});
+
+function startReview() {
+  var val = document.getElementById('nameInput').value.trim();
+  if (!val) {
+    document.getElementById('nameError').textContent = 'Please enter your name to continue.';
+    return;
+  }
+  studentName = val;
+  document.getElementById('nameScreen').classList.add('hidden');
+  document.getElementById('appShell').style.display = 'block';
+  buildNav();
+  buildPassages();
+}
+
+// ── TTS WITH ACCURATE CHAR-POSITION HIGHLIGHTING ─────────────────
+// Strategy: flatten the container text into an array of {span, charStart, charEnd}
+// then on each boundary event use charIndex to find the right span directly.
+
+var ttsActive = false;
+
+function setTtsStatus(msg) {
+  var el = document.getElementById('ttsStatus');
+  if (el) el.textContent = msg;
+}
+
+function stopReading() {
+  window.speechSynthesis.cancel();
+  ttsActive = false;
+  clearHighlight();
+  setTtsStatus('');
+}
+
+function clearHighlight() {
+  document.querySelectorAll('.tts-word.speaking').forEach(function(el) {
+    el.classList.remove('speaking');
+  });
+}
+
+// Split a container's text nodes into word <span> elements
+// Returns array of {span, start, end} relative to full plain text of container
+function wrapAndIndex(container) {
+  if (container.dataset.ttsWrapped) {
+    // Already wrapped — just rebuild the index
+    var spans = Array.from(container.querySelectorAll('.tts-word'));
+    var fullText = spans.map(function(s) { return s.textContent; }).join(' ');
+    var index = [];
+    var pos = 0;
+    spans.forEach(function(span) {
+      var word = span.textContent;
+      var start = fullText.indexOf(word, pos);
+      index.push({ span: span, start: start, end: start + word.length });
+      pos = start + word.length;
+    });
+    return { fullText: fullText, index: index };
+  }
+
+  // Walk all text nodes and wrap each word in a span
+  container.dataset.ttsWrapped = '1';
+  var walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+  var textNodes = [];
+  var node;
+  while ((node = walker.nextNode())) textNodes.push(node);
+
+  textNodes.forEach(function(tn) {
+    if (!tn.nodeValue.trim()) return;
+    var frag = document.createDocumentFragment();
+    // Split keeping spaces
+    var tokens = tn.nodeValue.split(/(\s+)/);
+    tokens.forEach(function(token) {
+      if (/^\s+$/.test(token) || token === '') {
+        frag.appendChild(document.createTextNode(token));
+      } else {
+        var span = document.createElement('span');
+        span.className = 'tts-word';
+        span.textContent = token;
+        frag.appendChild(span);
+      }
+    });
+    tn.parentNode.replaceChild(frag, tn);
+  });
+
+  // Build index from the now-wrapped spans
+  var spans = Array.from(container.querySelectorAll('.tts-word'));
+  // Build the plain text exactly as SpeechSynthesis will see it
+  var fullText = container.innerText || container.textContent;
+  fullText = fullText.replace(/\s+/g, ' ').trim();
+
+  var index = [];
+  var searchPos = 0;
+  spans.forEach(function(span) {
+    var word = span.textContent.trim();
+    if (!word) return;
+    var found = fullText.indexOf(word, searchPos);
+    if (found === -1) found = searchPos;
+    index.push({ span: span, start: found, end: found + word.length });
+    searchPos = found + word.length;
+  });
+
+  return { fullText: fullText, index: index };
+}
+
+// Core speak function: speaks text, highlights words in containerEl using charIndex
+function speakWithHighlight(textToSpeak, containerEl, onDone) {
+  window.speechSynthesis.cancel();
+  clearHighlight();
+  ttsActive = true;
+
+  var spanIndex = [];
+  if (containerEl) {
+    var wrapped = wrapAndIndex(containerEl);
+    spanIndex = wrapped.index;
+  }
+
+  var utt = new SpeechSynthesisUtterance(textToSpeak);
+  utt.rate = 0.88;
+  utt.pitch = 1;
+
+  var lastHighlighted = null;
+
+  utt.onboundary = function(event) {
+    if (!ttsActive) return;
+    if (event.name !== 'word') return;
+    if (!spanIndex.length) return;
+
+    var charIdx = event.charIndex;
+
+    // Clear previous highlight
+    if (lastHighlighted) lastHighlighted.classList.remove('speaking');
+
+    // Find the span whose range contains this charIndex
+    // Use binary search for efficiency
+    var lo = 0, hi = spanIndex.length - 1, best = 0;
+    while (lo <= hi) {
+      var mid = Math.floor((lo + hi) / 2);
+      if (spanIndex[mid].start <= charIdx) {
+        best = mid;
+        lo = mid + 1;
+      } else {
+        hi = mid - 1;
+      }
+    }
+
+    var entry = spanIndex[best];
+    if (entry) {
+      entry.span.classList.add('speaking');
+      entry.span.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      lastHighlighted = entry.span;
+    }
+  };
+
+  utt.onend = function() {
+    clearHighlight();
+    ttsActive = false;
+    setTtsStatus('');
+    if (onDone) onDone();
+  };
+  utt.onerror = function() {
+    clearHighlight();
+    ttsActive = false;
+    if (onDone) onDone();
+  };
+
+  window.speechSynthesis.speak(utt);
+}
+
+// Speak plain text (no highlighting) — for short feedback messages
+function speakText(text) {
+  window.speechSynthesis.cancel();
+  clearHighlight();
+  var utt = new SpeechSynthesisUtterance(text);
+  utt.rate = 0.92;
+  window.speechSynthesis.speak(utt);
+}
+
+function getPlainText(el) {
+  return (el.innerText || el.textContent).replace(/\s+/g, ' ').trim();
+}
+
+function getActivePassageIdx() {
+  var panels = document.querySelectorAll('.passage-panel');
+  for (var i = 0; i < panels.length; i++) {
+    if (panels[i].classList.contains('active')) return i;
+  }
+  return 0;
+}
+
+// Read passage button handler
+function readPassage(pIdx) {
+  var pbox = document.getElementById('pbox-' + pIdx);
+  if (!pbox) return;
+  var p = passages[pIdx];
+  var intro = p.title.replace(/<[^>]+>/g, '') + ', by ' + p.author.replace(/<[^>]+>/g, '') + '. ';
+  var body = getPlainText(pbox);
+  setTtsStatus('Reading passage...');
+  speakWithHighlight(intro + body, pbox);
+}
+
+// Read a single question card
+function readQuestionCard(cardEl) {
+  if (!cardEl) return;
+  stopReading();
+  setTtsStatus('Reading question...');
+  speakWithHighlight(getPlainText(cardEl), cardEl);
+}
+
+// Read all questions for active panel
+function readQuestions() {
+  var idx = getActivePassageIdx();
+  var cards = Array.from(document.querySelectorAll('#panel' + idx + ' .question-card'));
+  if (!cards.length) return;
+  stopReading();
+  ttsActive = true;
+  setTtsStatus('Reading questions...');
+  var i = 0;
+  function next() {
+    if (!ttsActive || i >= cards.length) { setTtsStatus(''); ttsActive = false; return; }
+    speakWithHighlight(getPlainText(cards[i]), cards[i], function() { i++; next(); });
+  }
+  next();
+}
+
+// Read passage then all questions
+function readAll() {
+  var idx = getActivePassageIdx();
+  var pbox = document.getElementById('pbox-' + idx);
+  var p = passages[idx];
+  var cards = Array.from(document.querySelectorAll('#panel' + idx + ' .question-card'));
+  stopReading();
+  ttsActive = true;
+  var intro = p.title.replace(/<[^>]+>/g, '') + ', by ' + p.author.replace(/<[^>]+>/g, '') + '. ';
+  var body = pbox ? getPlainText(pbox) : '';
+  setTtsStatus('Reading all...');
+  speakWithHighlight(intro + body, pbox, function() {
+    var i = 0;
+    function next() {
+      if (!ttsActive || i >= cards.length) { setTtsStatus(''); ttsActive = false; return; }
+      speakWithHighlight(getPlainText(cards[i]), cards[i], function() { i++; next(); });
+    }
+    next();
+  });
+}
+
+// ── NAV ──────────────────────────────────────────────────────────
+function buildNav() {
+  var nav = document.getElementById('passageNav');
+  passages.forEach(function(p, i) {
+    var btn = document.createElement('button');
+    var short = p.title.replace('from ', '').replace(/^"/, '').split(' ').slice(0, 4).join(' ');
+    btn.textContent = 'P' + (i + 1) + ': ' + short + '...';
+    btn.id = 'navBtn' + i;
+    btn.onclick = (function(idx) { return function() { stopReading(); showPassage(idx); }; })(i);
+    if (i === 0) btn.classList.add('active');
+    nav.appendChild(btn);
+  });
+}
+
+function showPassage(idx) {
+  document.querySelectorAll('.passage-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.passage-nav button').forEach(function(b) { b.classList.remove('active'); });
+  var panel = document.getElementById('panel' + idx);
+  if (panel) panel.classList.add('active');
+  var nb = document.getElementById('navBtn' + idx);
+  if (nb) nb.classList.add('active');
+  document.getElementById('finalResults').classList.remove('show');
+}
+
+// ── BUILD UI ─────────────────────────────────────────────────────
+function buildPassages() {
+  var container = document.getElementById('passagePanels');
+  passages.forEach(function(p, pIdx) {
+    var panel = document.createElement('div');
+    panel.className = 'passage-panel' + (pIdx === 0 ? ' active' : '');
+    panel.id = 'panel' + pIdx;
+
+    var qNum = 0;
+    var qHTML = p.questions.map(function(q, qIdx) {
+      if (q.parts) {
+        var aHTML = buildChoices(pIdx, qIdx, 'a', q.partA);
+        var bHTML = buildChoices(pIdx, qIdx, 'b', q.partB);
+        qNum++;
+        var n = qNum;
+        return '<div class="question-card" id="qcard-' + pIdx + '-' + qIdx + '">' +
+          '<div class="q-header">' +
+            '<div class="q-num">' + n + '</div>' +
+            '<div class="q-stem">This question has two parts. First answer Part A, then answer Part B.</div>' +
+            '<button class="q-read-btn" onclick="readQuestionCard(document.getElementById(\'qcard-' + pIdx + '-' + qIdx + '\'))" title="Read question">&#x1F50A;</button>' +
+          '</div>' +
+          '<div class="part-label">Part A</div>' +
+          '<p class="part-stem">' + q.partA.stem + '</p>' +
+          '<ul class="choices">' + aHTML + '</ul>' +
+          '<div class="feedback" id="fb-' + pIdx + '-' + qIdx + '-a"></div>' +
+          '<div class="part-label" style="margin-top:14px;">Part B</div>' +
+          '<p class="part-stem">' + q.partB.stem + '</p>' +
+          '<ul class="choices">' + bHTML + '</ul>' +
+          '<div class="feedback" id="fb-' + pIdx + '-' + qIdx + '-b"></div>' +
+          '</div>';
+      } else {
+        qNum++;
+        var n = qNum;
+        var cHTML = buildChoices(pIdx, qIdx, '', q);
+        return '<div class="question-card" id="qcard-' + pIdx + '-' + qIdx + '">' +
+          '<div class="q-header">' +
+            '<div class="q-num">' + n + '</div>' +
+            '<div class="q-stem">' + q.stem + '</div>' +
+            '<button class="q-read-btn" onclick="readQuestionCard(document.getElementById(\'qcard-' + pIdx + '-' + qIdx + '\'))" title="Read question">&#x1F50A;</button>' +
+          '</div>' +
+          '<ul class="choices">' + cHTML + '</ul>' +
+          '<div class="feedback" id="fb-' + pIdx + '-' + qIdx + '-"></div>' +
+          '</div>';
+      }
+    }).join('');
+
+    panel.innerHTML =
+      '<div class="passage-header">' +
+        '<div class="passage-tag">' + p.tag + '</div>' +
+        '<div class="passage-title">' + p.title + '</div>' +
+        '<div class="passage-author">' + p.author + '</div>' +
+      '</div>' +
+      '<div class="layout">' +
+        '<div class="passage-col">' +
+          '<button class="passage-read-btn" onclick="readPassage(' + pIdx + ')">&#x1F50A; Read Passage Aloud</button>' +
+          '<div class="passage-box" id="pbox-' + pIdx + '">' + p.text + '</div>' +
+        '</div>' +
+        '<div class="questions-box">' + qHTML + '</div>' +
+      '</div>';
+    container.appendChild(panel);
+  });
+}
+
+// Store explanations separately to avoid quote escaping issues in onclick
+var explanationStore = {};
+
+function buildChoices(pIdx, qIdx, part, qObj) {
+  var letters = ['A', 'B', 'C', 'D'];
+  var expKey = pIdx + '-' + qIdx + '-' + part;
+  explanationStore[expKey] = qObj.explanation;
+  return qObj.choices.map(function(c, cIdx) {
+    return '<li><button class="choice-btn"' +
+      ' onclick="answer(' + pIdx + ',' + qIdx + ',\'' + part + '\',' + cIdx + ',' + qObj.correct + ')"' +
+      ' id="cb-' + pIdx + '-' + qIdx + '-' + part + '-' + cIdx + '">' +
+      '<span class="letter">' + letters[cIdx] + '.</span><span>' + c + '</span></button></li>';
+  }).join('');
+}
+
+// ── ANSWER ───────────────────────────────────────────────────────
+function answer(pIdx, qIdx, part, chosen, correct) {
+  var explanation = explanationStore[pIdx + '-' + qIdx + '-' + part] || '';
+  var key = pIdx + '-' + qIdx + '-' + part;
+  if (answered[key]) return;
+  answered[key] = { chosen: chosen, correct: correct };
+  totalAnswered++;
+  var isCorrect = (chosen === correct);
+  if (isCorrect) totalCorrect++;
+  for (var i = 0; i < 4; i++) {
+    var btn = document.getElementById('cb-' + pIdx + '-' + qIdx + '-' + part + '-' + i);
+    if (!btn) continue;
+    btn.disabled = true;
+    if (i === correct) btn.classList.add('correct');
+    else if (i === chosen && !isCorrect) btn.classList.add('wrong');
+  }
+  var fb = document.getElementById('fb-' + pIdx + '-' + qIdx + '-' + part);
+  if (fb) {
+    fb.textContent = (isCorrect ? '\u2705 Correct! ' : '\u274C Not quite. ') + explanation;
+    fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'wrong');
+  }
+  speakText(isCorrect ? 'Correct!' : 'Not quite. ' + explanation);
+  updateScore();
+  checkFinished();
+}
+
+function updateScore() {
+  document.getElementById('scoreBadge').textContent = 'Score: ' + totalCorrect + ' / ' + totalAnswered;
+  var pct = totalQuestions > 0 ? (totalAnswered / totalQuestions) * 100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+// ── GOOGLE FORM ───────────────────────────────────────────────────
+var FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdoJTcCoJeoBdpFDmjiF9iqMaSbqvGOd1t0kULRsohykzzwoQ/formResponse';
+
+function submitToGoogleForm(name, score, pct, details) {
+  var form = document.createElement('form');
+  form.method = 'POST';
+  form.action = FORM_ACTION;
+  form.target = 'hidden_iframe';
+  form.style.display = 'none';
+  var fields = {
+    'entry.2114871058': name,
+    'entry.1025442899': score,
+    'entry.478290490': pct + '%',
+    'entry.315330554': details
+  };
+  Object.keys(fields).forEach(function(k) {
+    var inp = document.createElement('input');
+    inp.type = 'hidden'; inp.name = k; inp.value = fields[k];
+    form.appendChild(inp);
+  });
+  document.body.appendChild(form);
+  form.submit();
+  setTimeout(function() { document.body.removeChild(form); }, 3000);
+}
+
+function buildDetailsString() {
+  var letters = ['A', 'B', 'C', 'D'];
+  var lines = [];
+  passages.forEach(function(p, pIdx) {
+    var qNum = 0;
+    p.questions.forEach(function(q, qIdx) {
+      qNum++;
+      if (q.parts) {
+        ['a', 'b'].forEach(function(part) {
+          var qObj = part === 'a' ? q.partA : q.partB;
+          var key = pIdx + '-' + qIdx + '-' + part;
+          var ans = answered[key];
+          lines.push('P' + (pIdx+1) + ' Q' + qNum + ' Pt' + part.toUpperCase() + ': got=' + (ans ? letters[ans.chosen] : '?') + ' correct=' + letters[qObj.correct] + ' ' + (ans && ans.chosen === qObj.correct ? 'RIGHT' : 'WRONG'));
+        });
+      } else {
+        var key = pIdx + '-' + qIdx + '-';
+        var ans = answered[key];
+        lines.push('P' + (pIdx+1) + ' Q' + qNum + ': got=' + (ans ? letters[ans.chosen] : '?') + ' correct=' + letters[q.correct] + ' ' + (ans && ans.chosen === q.correct ? 'RIGHT' : 'WRONG'));
+      }
+    });
+  });
+  return lines.join(' | ');
+}
+
+function checkFinished() {
+  if (totalAnswered < totalQuestions) return;
+  stopReading();
+  setTimeout(function() {
+    document.querySelectorAll('.passage-panel').forEach(function(p) { p.classList.remove('active'); });
+    var final = document.getElementById('finalResults');
+    final.classList.add('show');
+    var pct = Math.round((totalCorrect / totalQuestions) * 100);
+    document.getElementById('finalName').textContent = 'Student: ' + studentName;
+    document.getElementById('finalScore').textContent = totalCorrect + ' / ' + totalQuestions;
+    document.getElementById('finalLabel').textContent = pct + '% — All ' + totalQuestions + ' questions answered!';
+    var msg = pct >= 90 ? '\u2B50 Outstanding! You are an inference master!' :
+              pct >= 75 ? '\uD83C\uDF89 Great job! You have strong inference skills!' :
+              pct >= 60 ? '\uD83D\uDC4D Good effort! Keep practicing inferences!' :
+                          '\uD83D\uDCDA Keep reviewing — you have got this!';
+    document.getElementById('finalMsg').textContent = msg;
+    buildResultsTable();
+    submitToGoogleForm(studentName, totalCorrect + '/' + totalQuestions, pct, buildDetailsString());
+    document.getElementById('submitStatus').textContent = '\u2705 Results sent to your teacher!';
+    speakText('You finished! You got ' + totalCorrect + ' out of ' + totalQuestions + ' correct!');
+  }, 800);
+}
+
+function buildResultsTable() {
+  var letters = ['A', 'B', 'C', 'D'];
+  var html = '<thead><tr><th>Passage</th><th>Question</th><th>Your Answer</th><th>Correct</th><th>Result</th></tr></thead><tbody>';
+  passages.forEach(function(p, pIdx) {
+    var qNum = 0;
+    p.questions.forEach(function(q, qIdx) {
+      qNum++;
+      if (q.parts) {
+        ['a', 'b'].forEach(function(part) {
+          var qObj = part === 'a' ? q.partA : q.partB;
+          var key = pIdx + '-' + qIdx + '-' + part;
+          var ans = answered[key];
+          var chosen = ans ? letters[ans.chosen] : '?';
+          var isRight = ans && ans.chosen === qObj.correct;
+          html += '<tr><td>P' + (pIdx+1) + '</td><td>Q' + qNum + ' Pt ' + part.toUpperCase() + '</td><td>' + chosen + '</td><td>' + letters[qObj.correct] + '</td><td class="' + (isRight ? 'tag-correct' : 'tag-wrong') + '">' + (isRight ? '\u2705' : '\u274C') + '</td></tr>';
+        });
+      } else {
+        var key = pIdx + '-' + qIdx + '-';
+        var ans = answered[key];
+        var chosen = ans ? letters[ans.chosen] : '?';
+        var isRight = ans && ans.chosen === q.correct;
+        html += '<tr><td>P' + (pIdx+1) + '</td><td>Q' + qNum + '</td><td>' + chosen + '</td><td>' + letters[q.correct] + '</td><td class="' + (isRight ? 'tag-correct' : 'tag-wrong') + '">' + (isRight ? '\u2705' : '\u274C') + '</td></tr>';
+      }
+    });
+  });
+  document.getElementById('resultsTable').innerHTML = html + '</tbody>';
+}
+
+function restartAll() { location.reload(); }
+
+</script>
+</body>
+</html>
