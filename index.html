@@ -130,6 +130,12 @@ main{max-width:1100px;margin:0 auto;padding:20px 20px 60px;}
 .btn-print{background:var(--blue);color:white;border:none;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;padding:14px 36px;border-radius:10px;cursor:pointer;}
 .btn-print:hover{background:#1d4ed8;}
 
+/* NEXT STORY BUTTON */
+.next-story-btn{display:block;width:100%;margin-top:16px;background:#1a2744;color:white;border:none;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;padding:14px;border-radius:10px;cursor:pointer;letter-spacing:.02em;transition:background .2s;}
+.next-story-btn:hover{background:#2563eb;}
+.finish-btn{display:block;width:100%;margin-top:16px;background:#16a34a;color:white;border:none;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;padding:14px;border-radius:10px;cursor:pointer;letter-spacing:.02em;transition:background .2s;}
+.finish-btn:hover{background:#15803d;}
+
 @media print{header,.tts-bar,.passage-nav,.progress-bar,.progress-label,.btn-row,.passage-read-btn,.q-read-btn{display:none!important;}.final-results{display:block!important;}.passage-panel{display:none!important;}}
 </style>
 </head>
@@ -901,11 +907,13 @@ function speakWithHighlight(textToSpeak, containerEl, onDone) {
 
 // Speak plain text (no highlighting) — for short feedback messages
 function speakText(text) {
-  window.speechSynthesis.cancel();
-  clearHighlight();
-  var utt = new SpeechSynthesisUtterance(text);
-  utt.rate = 0.92;
-  window.speechSynthesis.speak(utt);
+  try {
+    window.speechSynthesis.cancel();
+    clearHighlight();
+    var utt = new SpeechSynthesisUtterance(text);
+    utt.rate = 0.92;
+    window.speechSynthesis.speak(utt);
+  } catch(e) {}
 }
 
 function getPlainText(el) {
@@ -924,11 +932,8 @@ function getActivePassageIdx() {
 function readPassage(pIdx) {
   var pbox = document.getElementById('pbox-' + pIdx);
   if (!pbox) return;
-  var p = passages[pIdx];
-  var intro = p.title.replace(/<[^>]+>/g, '') + ', by ' + p.author.replace(/<[^>]+>/g, '') + '. ';
-  var body = getPlainText(pbox);
   setTtsStatus('Reading passage...');
-  speakWithHighlight(intro + body, pbox);
+  speakWithHighlight(getPlainText(pbox), pbox);
 }
 
 // Read a single question card
@@ -959,14 +964,11 @@ function readQuestions() {
 function readAll() {
   var idx = getActivePassageIdx();
   var pbox = document.getElementById('pbox-' + idx);
-  var p = passages[idx];
   var cards = Array.from(document.querySelectorAll('#panel' + idx + ' .question-card'));
   stopReading();
   ttsActive = true;
-  var intro = p.title.replace(/<[^>]+>/g, '') + ', by ' + p.author.replace(/<[^>]+>/g, '') + '. ';
-  var body = pbox ? getPlainText(pbox) : '';
   setTtsStatus('Reading all...');
-  speakWithHighlight(intro + body, pbox, function() {
+  speakWithHighlight(pbox ? getPlainText(pbox) : '', pbox, function() {
     var i = 0;
     function next() {
       if (!ttsActive || i >= cards.length) { setTtsStatus(''); ttsActive = false; return; }
@@ -1057,7 +1059,13 @@ function buildPassages() {
           '<button class="passage-read-btn" onclick="readPassage(' + pIdx + ')">&#x1F50A; Read Passage Aloud</button>' +
           '<div class="passage-box" id="pbox-' + pIdx + '">' + p.text + '</div>' +
         '</div>' +
-        '<div class="questions-box">' + qHTML + '</div>' +
+        '<div class="questions-box">' + qHTML +
+        (pIdx < passages.length - 1 ?
+          '<button class="next-story-btn" onclick="showPassage(' + (pIdx + 1) + ')">' +
+          'Next Story &#x2192;</button>' :
+          '<button class="finish-btn" onclick="checkFinished()">' +
+          '&#x2705; Finish &amp; See My Results</button>') +
+        '</div>' +
       '</div>';
     container.appendChild(panel);
   });
@@ -1105,7 +1113,7 @@ function answer(pIdx, qIdx, part, chosen, correct) {
 }
 
 function updateScore() {
-  document.getElementById('scoreBadge').textContent = 'Score: ' + totalCorrect + ' / ' + totalAnswered;
+  document.getElementById('scoreBadge').textContent = 'Score: ' + totalCorrect + ' correct | ' + totalAnswered + ' of ' + totalQuestions + ' answered';
   var pct = totalQuestions > 0 ? (totalAnswered / totalQuestions) * 100 : 0;
   document.getElementById('progressFill').style.width = pct + '%';
 }
@@ -1160,8 +1168,10 @@ function buildDetailsString() {
 }
 
 function checkFinished() {
-  if (totalAnswered < totalQuestions) return;
-  stopReading();
+  // Safety net: also count answered keys directly
+  var answeredCount = Object.keys(answered).length;
+  if (totalAnswered < totalQuestions && answeredCount < totalQuestions) return;
+  try { stopReading(); } catch(e) {}
   setTimeout(function() {
     document.querySelectorAll('.passage-panel').forEach(function(p) { p.classList.remove('active'); });
     var final = document.getElementById('finalResults');
@@ -1176,8 +1186,12 @@ function checkFinished() {
                           '\uD83D\uDCDA Keep reviewing — you have got this!';
     document.getElementById('finalMsg').textContent = msg;
     buildResultsTable();
-    submitToGoogleForm(studentName, totalCorrect + '/' + totalQuestions, pct, buildDetailsString());
-    document.getElementById('submitStatus').textContent = '\u2705 Results sent to your teacher!';
+    try {
+      submitToGoogleForm(studentName, totalCorrect + '/' + totalQuestions, pct, buildDetailsString());
+      document.getElementById('submitStatus').textContent = '\u2705 Results sent to your teacher!';
+    } catch(e) {
+      document.getElementById('submitStatus').textContent = 'Results ready!';
+    }
     speakText('You finished! You got ' + totalCorrect + ' out of ' + totalQuestions + ' correct!');
   }, 800);
 }
