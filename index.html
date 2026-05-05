@@ -9,12 +9,7 @@
 :root{--navy:#1a2744;--blue:#2563eb;--sky:#dbeafe;--green:#16a34a;--green-bg:#dcfce7;--red:#dc2626;--red-bg:#fee2e2;--gray:#64748b;--light:#f8fafc;--border:#e2e8f0;--passage-bg:#f0f4ff;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Nunito',sans-serif;background:var(--light);color:var(--navy);min-height:100vh;}
-
-/* HIGHLIGHT */
-.tts-word{display:inline;}
 .tts-word.speaking{background:#fde68a;border-radius:3px;outline:2px solid #f59e0b;padding:0 1px;}
-
-/* COVER */
 .cover-page{position:fixed;inset:0;z-index:999;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;}
 .cover-page.hidden{display:none;}
 .cover-stars{font-size:2.2rem;margin-bottom:18px;letter-spacing:10px;}
@@ -22,8 +17,6 @@ body{font-family:'Nunito',sans-serif;background:var(--light);color:var(--navy);m
 .cover-sub{font-size:1.15rem;color:#93c5fd;margin-bottom:52px;font-weight:600;letter-spacing:.05em;}
 .cover-btn{background:#2563eb;color:white;border:none;font-family:'Nunito',sans-serif;font-size:1.25rem;font-weight:900;padding:20px 60px;border-radius:14px;cursor:pointer;box-shadow:0 8px 32px rgba(37,99,235,.5);transition:transform .15s,box-shadow .15s;}
 .cover-btn:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(37,99,235,.7);}
-
-/* NAME */
 .name-screen{position:fixed;inset:0;z-index:998;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;}
 .name-screen.hidden{display:none;}
 .name-title{font-family:'Merriweather',serif;font-size:1.9rem;font-weight:700;color:white;margin-bottom:10px;}
@@ -34,120 +27,155 @@ body{font-family:'Nunito',sans-serif;background:var(--light);color:var(--navy);m
 .name-error{color:#f87171;font-size:.88rem;font-weight:700;min-height:22px;margin-bottom:16px;}
 .name-btn{background:#2563eb;color:white;border:none;font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:900;padding:15px 50px;border-radius:10px;cursor:pointer;transition:background .2s;}
 .name-btn:hover{background:#1d4ed8;}
-
-/* HEADER */
+.resume-toast{display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a2744;color:#93c5fd;border:1px solid #60a5fa44;padding:12px 24px;border-radius:10px;font-weight:700;font-size:.88rem;z-index:500;box-shadow:0 4px 20px rgba(0,0,0,.3);}
+.finish-warning{display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#fee2e2;color:#dc2626;border:1.5px solid #dc2626;padding:12px 24px;border-radius:10px;font-weight:700;font-size:.88rem;z-index:500;box-shadow:0 4px 20px rgba(0,0,0,.2);max-width:90vw;text-align:center;}
 header{background:var(--navy);color:white;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,.3);}
-.header-inner{max-width:1100px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
-.site-title{font-size:1.35rem;font-weight:900;letter-spacing:-.02em;}
+.header-inner{max-width:1100px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.site-title{font-size:1.2rem;font-weight:900;letter-spacing:-.02em;}
 .site-title span{color:#60a5fa;}
-.score-badge{background:#60a5fa22;border:1px solid #60a5fa55;border-radius:999px;padding:6px 18px;font-size:.9rem;font-weight:700;color:#93c5fd;}
-
-/* NAV */
+.header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.score-badge{background:#60a5fa22;border:1px solid #60a5fa55;border-radius:999px;padding:5px 14px;font-size:.82rem;font-weight:700;color:#93c5fd;white-space:nowrap;}
+.font-controls{display:flex;align-items:center;gap:4px;}
+.font-lbl{color:#93c5fd;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-right:4px;}
+.font-btn{background:#1e3a6e;color:#93c5fd;border:1px solid #2d4f8a;border-radius:5px;font-family:'Nunito',sans-serif;font-weight:800;cursor:pointer;padding:3px 9px;transition:all .15s;}
+.font-btn:hover,.font-btn.active-font{background:#2563eb;color:white;border-color:#2563eb;}
 .passage-nav{background:#253258;display:flex;overflow-x:auto;scrollbar-width:none;border-bottom:2px solid #60a5fa33;}
 .passage-nav::-webkit-scrollbar{display:none;}
-.passage-nav button{background:none;border:none;color:#93c5fd;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;padding:10px 18px;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s;flex-shrink:0;}
+.passage-nav button{background:none;border:none;color:#93c5fd;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;padding:9px 14px;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s;flex-shrink:0;display:flex;align-items:center;gap:5px;}
 .passage-nav button:hover{color:white;background:rgba(255,255,255,.05);}
 .passage-nav button.active{color:white;border-bottom-color:#60a5fa;background:rgba(96,165,250,.1);}
-
-/* TTS BAR */
-.tts-bar{background:#1e3a6e;border-bottom:1px solid #2d4f8a;padding:8px 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.tts-label{color:#93c5fd;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
-.tts-btn{background:#2563eb;color:white;border:none;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:800;padding:6px 13px;border-radius:6px;cursor:pointer;transition:background .15s;}
+.nav-prog{background:#60a5fa22;border-radius:999px;padding:1px 6px;font-size:.68rem;font-weight:900;color:#60a5fa;}
+.nav-done{color:#16a34a;font-weight:900;font-size:.8rem;}
+.tts-bar{background:#1e3a6e;border-bottom:1px solid #2d4f8a;padding:7px 24px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.tts-label{color:#93c5fd;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tts-btn{background:#2563eb;color:white;border:none;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:800;padding:5px 12px;border-radius:6px;cursor:pointer;transition:background .15s;}
 .tts-btn:hover{background:#1d4ed8;}
 .tts-btn.stop{background:#dc2626;}
 .tts-btn.stop:hover{background:#b91c1c;}
-.tts-status{color:#60a5fa;font-size:.78rem;font-weight:700;font-style:italic;}
-
-/* MAIN */
-main{max-width:1100px;margin:0 auto;padding:20px 20px 60px;}
-.progress-label{font-size:.78rem;font-weight:800;color:var(--gray);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;}
-.progress-bar{height:8px;background:var(--border);border-radius:999px;overflow:hidden;margin-bottom:20px;}
+.tts-status{color:#60a5fa;font-size:.75rem;font-weight:700;font-style:italic;}
+main{max-width:1100px;margin:0 auto;padding:16px 20px 60px;}
+.progress-label{font-size:.72rem;font-weight:800;color:var(--gray);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em;}
+.progress-bar{height:7px;background:var(--border);border-radius:999px;overflow:hidden;margin-bottom:18px;}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),#60a5fa);border-radius:999px;transition:width .5s ease;width:0%;}
-
-/* PASSAGE PANEL */
 .passage-panel{display:none;}
 .passage-panel.active{display:block;}
-.passage-header{margin-bottom:14px;}
-.passage-tag{display:inline-block;background:var(--blue);color:white;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:4px;margin-bottom:6px;}
-.passage-title{font-family:'Merriweather',serif;font-size:1.15rem;font-weight:700;margin-bottom:2px;}
-.passage-author{font-size:.88rem;color:var(--gray);}
-.layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;}
+.passage-header{margin-bottom:12px;}
+.passage-tag{display:inline-block;background:var(--blue);color:white;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:4px;margin-bottom:5px;}
+.passage-title{font-family:'Merriweather',serif;font-size:1.1rem;font-weight:700;margin-bottom:2px;}
+.passage-author{font-size:.85rem;color:var(--gray);}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start;}
 @media(max-width:750px){.layout{grid-template-columns:1fr;}}
-
-/* PASSAGE BOX */
-.passage-col{position:sticky;top:135px;}
-.passage-box{background:var(--passage-bg);border:1px solid #c7d7fb;border-radius:0 0 12px 12px;padding:22px 24px;font-family:'Merriweather',serif;font-size:.88rem;line-height:1.9;max-height:calc(100vh - 230px);overflow-y:auto;}
+.passage-col{position:sticky;top:120px;}
+.passage-read-btn{width:100%;background:#1e3a6e;color:#93c5fd;border:1px solid #2d4f8a;border-bottom:none;border-radius:12px 12px 0 0;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:800;padding:9px;cursor:pointer;transition:background .15s;}
+.passage-read-btn:hover{background:#253258;color:white;}
+.passage-box{background:var(--passage-bg);border:1px solid #c7d7fb;border-radius:0 0 12px 12px;padding:20px 22px;font-family:'Merriweather',serif;font-size:.9rem;line-height:1.9;max-height:calc(100vh - 240px);overflow-y:auto;}
 .passage-box p{margin-bottom:12px;}
 .passage-box p:last-child{margin-bottom:0;}
 .passage-box .section-head{font-weight:700;margin-top:16px;}
 .passage-box .footnote{font-size:.75rem;color:var(--gray);margin-top:12px;}
-.passage-box .click-word{font-style:italic;font-size:1.05rem;}
 .passage-box .copyright{font-size:.72rem;color:var(--gray);border-top:1px solid #c7d7fb;margin-top:16px;padding-top:10px;}
-.passage-read-btn{width:100%;background:#1e3a6e;color:#93c5fd;border:1px solid #2d4f8a;border-bottom:none;border-radius:12px 12px 0 0;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:800;padding:10px;cursor:pointer;transition:background .15s;}
-.passage-read-btn:hover{background:#253258;color:white;}
-
-/* QUESTIONS */
-.questions-box{display:flex;flex-direction:column;gap:18px;}
-.question-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:18px;}
-.q-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;}
-.q-num{background:var(--navy);color:white;font-weight:900;font-size:.85rem;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.q-stem{font-size:.9rem;font-weight:700;line-height:1.5;flex:1;}
-.q-read-btn{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:6px;font-size:1rem;width:32px;height:32px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .15s;padding:0;}
+.pass-prog-wrap{margin-bottom:14px;}
+.pass-prog-label{font-size:.75rem;font-weight:800;color:var(--gray);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em;}
+.pass-prog-bar{height:6px;background:var(--border);border-radius:999px;overflow:hidden;}
+.pass-prog-fill{height:100%;background:linear-gradient(90deg,var(--blue),#60a5fa);border-radius:999px;transition:width .4s ease;width:0%;}
+.questions-box{display:flex;flex-direction:column;gap:16px;}
+.question-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:16px;}
+.q-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:11px;}
+.q-num{background:var(--navy);color:white;font-weight:900;font-size:.82rem;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.q-stem{font-size:.87rem;font-weight:700;line-height:1.5;flex:1;}
+.q-read-btn{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:6px;font-size:.95rem;width:30px;height:30px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .15s;padding:0;}
 .q-read-btn:hover{background:#bfdbfe;}
-.part-label{display:inline-block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--blue);background:var(--sky);padding:2px 8px;border-radius:4px;margin:8px 0 6px;}
-.part-stem{font-size:.87rem;font-weight:700;margin-bottom:10px;line-height:1.5;}
-.choices{list-style:none;display:flex;flex-direction:column;gap:7px;}
-.choice-btn{width:100%;text-align:left;background:var(--light);border:1.5px solid var(--border);border-radius:8px;padding:9px 13px;font-family:'Nunito',sans-serif;font-size:.84rem;font-weight:600;color:var(--navy);cursor:pointer;display:flex;align-items:flex-start;gap:9px;transition:all .15s;line-height:1.45;}
+.part-label{display:inline-block;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--blue);background:var(--sky);padding:2px 8px;border-radius:4px;margin:7px 0 5px;}
+.part-row{display:flex;align-items:center;gap:8px;margin:7px 0 4px;}
+.part-row .part-label{margin:0;}
+.part-stem{font-size:.85rem;font-weight:700;margin-bottom:9px;line-height:1.5;}
+.choices{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.choice-btn{width:100%;text-align:left;background:var(--light);border:1.5px solid var(--border);border-radius:8px;padding:8px 12px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:600;color:var(--navy);cursor:pointer;display:flex;align-items:flex-start;gap:8px;transition:all .15s;line-height:1.45;}
 .choice-btn:hover:not(:disabled){background:var(--sky);border-color:var(--blue);}
-.choice-btn .letter{font-weight:900;color:var(--blue);min-width:18px;flex-shrink:0;}
+.choice-btn .letter{font-weight:900;color:var(--blue);min-width:16px;flex-shrink:0;}
 .choice-btn.correct{background:var(--green-bg);border-color:var(--green);color:#14532d;}
 .choice-btn.correct .letter{color:var(--green);}
 .choice-btn.wrong{background:var(--red-bg);border-color:var(--red);color:#7f1d1d;}
 .choice-btn.wrong .letter{color:var(--red);}
 .choice-btn:disabled{cursor:default;}
-.feedback{margin-top:10px;font-size:.82rem;font-weight:700;padding:8px 12px;border-radius:8px;display:none;}
+.feedback{margin-top:9px;font-size:.8rem;font-weight:700;padding:8px 11px;border-radius:8px;display:none;}
 .feedback.show{display:block;}
 .feedback.correct{background:var(--green-bg);color:var(--green);}
 .feedback.wrong{background:var(--red-bg);color:var(--red);}
-
-/* FINAL */
-.final-results{display:none;text-align:center;padding:40px 20px 60px;max-width:900px;margin:0 auto;}
-.final-results.show{display:block;}
-.final-name{font-size:1.1rem;color:var(--gray);margin-bottom:6px;font-weight:700;}
-.final-big{font-size:5rem;font-weight:900;color:var(--navy);line-height:1;}
-.final-label{font-size:1.15rem;color:var(--gray);margin:8px 0 16px;}
-.final-msg{font-size:1.2rem;font-weight:700;margin-bottom:12px;}
-.submit-status{font-size:.95rem;font-weight:700;color:var(--green);margin-bottom:24px;min-height:24px;}
-.results-table{width:100%;border-collapse:collapse;text-align:left;font-size:.88rem;margin-bottom:28px;}
-.results-table th{background:var(--navy);color:white;padding:10px 14px;font-weight:800;}
-.results-table td{padding:9px 14px;border-bottom:1px solid var(--border);}
-.results-table tr:nth-child(even) td{background:var(--light);}
-.tag-correct{color:var(--green);font-weight:900;}
-.tag-wrong{color:var(--red);font-weight:900;}
-.btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
-.btn-restart{background:var(--navy);color:white;border:none;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;padding:14px 36px;border-radius:10px;cursor:pointer;}
-.btn-restart:hover{background:#253258;}
-.btn-print{background:var(--blue);color:white;border:none;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;padding:14px 36px;border-radius:10px;cursor:pointer;}
-.btn-print:hover{background:#1d4ed8;}
-
-/* NEXT STORY BUTTON */
-.next-story-btn{display:block;width:100%;margin-top:16px;background:#1a2744;color:white;border:none;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;padding:14px;border-radius:10px;cursor:pointer;letter-spacing:.02em;transition:background .2s;}
+.next-story-btn{display:block;width:100%;margin-top:14px;background:var(--navy);color:white;border:none;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:900;padding:13px;border-radius:10px;cursor:pointer;transition:background .2s;}
 .next-story-btn:hover{background:#2563eb;}
-.finish-btn{display:block;width:100%;margin-top:16px;background:#16a34a;color:white;border:none;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;padding:14px;border-radius:10px;cursor:pointer;letter-spacing:.02em;transition:background .2s;}
-.finish-btn:hover{background:#15803d;}
-
-@media print{header,.tts-bar,.passage-nav,.progress-bar,.progress-label,.btn-row,.passage-read-btn,.q-read-btn{display:none!important;}.final-results{display:block!important;}.passage-panel{display:none!important;}}
+.finish-btn{display:block;width:100%;margin-top:14px;background:#94a3b8;color:white;border:none;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:900;padding:13px;border-radius:10px;cursor:not-allowed;transition:all .2s;opacity:.7;}
+.finish-btn-ready{background:#16a34a !important;cursor:pointer !important;opacity:1 !important;}
+.finish-btn-ready:hover{background:#15803d !important;}
+.final-results{display:none;padding:30px 0 60px;}
+.final-results.show{display:block;}
+.final-header{text-align:center;padding:0 20px 24px;}
+.final-student{font-size:1.4rem;font-weight:900;color:var(--navy);margin-bottom:4px;}
+.final-time-line{font-size:.85rem;color:var(--gray);margin-bottom:18px;}
+.final-score-big{font-size:4.5rem;font-weight:900;color:var(--navy);line-height:1;}
+.final-pct{font-size:1.5rem;font-weight:700;color:var(--blue);margin-bottom:8px;}
+.final-msg{font-size:1.1rem;font-weight:700;margin-bottom:8px;}
+.submit-status{font-size:.88rem;font-weight:700;color:var(--green);margin-bottom:20px;min-height:20px;}
+.res-summary{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;}
+.res-sum-item{background:white;border:1.5px solid var(--border);border-radius:12px;padding:14px 22px;text-align:center;min-width:110px;}
+.res-sum-val{font-size:1.5rem;font-weight:900;color:var(--navy);}
+.res-sum-key{font-size:.72rem;color:var(--gray);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-top:2px;}
+.res-passage-block{background:white;border:1.5px solid var(--border);border-radius:12px;margin-bottom:14px;overflow:hidden;}
+.res-pass-header{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;background:var(--light);border-bottom:1px solid var(--border);}
+.res-pass-title{font-weight:800;font-size:.88rem;}
+.res-pass-score{font-weight:900;font-size:.95rem;}
+.res-table{width:100%;border-collapse:collapse;font-size:.8rem;}
+.res-table th{background:var(--navy);color:white;padding:7px 11px;font-weight:800;text-align:left;}
+.res-table td{padding:7px 11px;border-bottom:1px solid var(--border);}
+.res-table tr:last-child td{border-bottom:none;}
+.row-right td{background:#f0fdf4;}
+.row-wrong td{background:#fff5f5;}
+.q-type-cell{font-size:.73rem;color:var(--gray);font-weight:700;}
+.ans-right{color:var(--green);font-weight:900;}
+.ans-wrong{color:var(--red);font-weight:900;}
+.res-skills-block{background:white;border:1.5px solid var(--border);border-radius:12px;margin-bottom:14px;overflow:hidden;}
+.skill-row{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--border);}
+.skill-row:last-child{border-bottom:none;}
+.skill-name{font-size:.8rem;font-weight:700;min-width:170px;}
+.skill-bar-wrap{flex:1;height:10px;background:var(--border);border-radius:999px;overflow:hidden;}
+.skill-bar-fill{height:100%;border-radius:999px;transition:width .6s ease;}
+.skill-pct{font-size:.8rem;font-weight:900;min-width:80px;text-align:right;}
+.dashboard-panel{display:none;max-width:900px;margin:20px auto;padding:0 20px 60px;}
+.dashboard-panel.show{display:block;}
+.dash-header{font-family:'Merriweather',serif;font-size:1.4rem;font-weight:700;margin-bottom:4px;}
+.dash-sub{font-size:.85rem;color:var(--gray);margin-bottom:20px;}
+.dash-summary-bar{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+.dash-sum-item{background:white;border:1.5px solid var(--border);border-radius:10px;padding:14px 20px;text-align:center;min-width:100px;}
+.dash-sum-val{font-size:1.8rem;font-weight:900;}
+.dash-sum-key{font-size:.72rem;color:var(--gray);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-top:2px;}
+.dash-table{width:100%;border-collapse:collapse;font-size:.85rem;background:white;border-radius:12px;overflow:hidden;border:1.5px solid var(--border);}
+.dash-table th{background:var(--navy);color:white;padding:10px 14px;font-weight:800;text-align:left;}
+.dash-table td{padding:9px 14px;border-bottom:1px solid var(--border);}
+.dash-table tr:last-child td{border-bottom:none;}
+.dash-table tr:nth-child(even) td{background:var(--light);}
+.dash-score-bar{height:6px;background:var(--border);border-radius:999px;overflow:hidden;margin-top:4px;}
+.dash-score-fill{height:100%;border-radius:999px;}
+.dash-empty{text-align:center;color:var(--gray);padding:40px;font-size:.9rem;}
+.btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px;}
+.btn-restart{background:var(--navy);color:white;border:none;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:800;padding:13px 28px;border-radius:10px;cursor:pointer;}
+.btn-restart:hover{background:#253258;}
+.btn-print{background:var(--blue);color:white;border:none;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:800;padding:13px 28px;border-radius:10px;cursor:pointer;}
+.btn-print:hover{background:#1d4ed8;}
+.btn-dash{background:#7c3aed;color:white;border:none;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:800;padding:13px 28px;border-radius:10px;cursor:pointer;}
+.btn-dash:hover{background:#6d28d9;}
+@media print{header,.tts-bar,.passage-nav,.progress-bar,.progress-label,.btn-row,.passage-read-btn,.q-read-btn,.next-story-btn,.finish-btn,.font-controls,.resume-toast,.finish-warning{display:none !important;}.final-results,.dashboard-panel{display:block !important;}.passage-panel{display:none !important;}}
 </style>
 </head>
 <body>
-
 <iframe name="hidden_iframe" style="display:none;"></iframe>
+<div class="resume-toast" id="resumeToast">Progress restored! Keep going where you left off.</div>
+<div id="finishWarning" class="finish-warning"></div>
 
 <div class="cover-page" id="coverPage">
   <div class="cover-stars">&#x1F4D6; &#x2B50; &#x1F4D6;</div>
   <div class="cover-title">SBAC Reading Review</div>
-  <div class="cover-sub">&#x2014; Inferences &#x2014;</div>
-  <button class="cover-btn" onclick="showNameScreen()">&#x25B6;&nbsp; Start</button>
+  <div class="cover-sub">&#x2014; Inferences &bull; Set 1 &#x2014;</div>
+  <button class="cover-btn" onclick="showNameScreen()">&#x25B6; Start</button>
 </div>
 
 <div class="name-screen hidden" id="nameScreen">
@@ -159,18 +187,34 @@ main{max-width:1100px;margin:0 auto;padding:20px 20px 60px;}
   <button class="name-btn" onclick="startReview()">Begin Review &#x2192;</button>
 </div>
 
+<div class="name-screen hidden" id="resumePopup">
+  <div class="cover-stars">&#x1F4BE;</div>
+  <div class="name-title">Resume Session?</div>
+  <div class="name-sub" id="resumePopupMsg">A previous session was found on this device.</div>
+  <div style="display:flex;gap:16px;margin-top:8px;flex-wrap:wrap;justify-content:center;">
+    <button class="name-btn" onclick="resumeYes()" style="background:#16a34a;">&#x2705; Yes, Resume</button>
+    <button class="name-btn" onclick="resumeNo()" style="background:#dc2626;">&#x274C; No, Start Fresh</button>
+  </div>
+</div>
+
 <div id="appShell" style="display:none;">
 <header>
   <div class="header-inner">
-    <div class="site-title">SBAC Reading Review <span>&#x2013; Inferences</span></div>
-    <div class="score-badge" id="scoreBadge">Score: 0 / 0</div>
+    <div class="site-title">SBAC Reading Review <span>&#x2013; Inferences Set 1</span></div>
+    <div class="header-right">
+      <div class="font-controls">
+        <span class="font-lbl">Text:</span>
+        <button class="font-btn" id="font-small" onclick="setFont('small')" style="font-size:.75rem;">A</button>
+        <button class="font-btn active-font" id="font-medium" onclick="setFont('medium')" style="font-size:.9rem;">A</button>
+        <button class="font-btn" id="font-large" onclick="setFont('large')" style="font-size:1.05rem;">A</button>
+      </div>
+      <div class="score-badge" id="scoreBadge">0 of 0 answered</div>
+    </div>
   </div>
   <nav class="passage-nav" id="passageNav"></nav>
   <div class="tts-bar">
     <span class="tts-label">&#x1F50A; Read Aloud:</span>
-    <button class="tts-btn" onclick="readAll()">&#x25B6; Read All</button>
-    <button class="tts-btn" onclick="readQuestions()">&#x2753; All Questions</button>
-    <button class="tts-btn stop" onclick="stopReading()">&#x23F9; Stop</button>
+    <button class="tts-btn stop" onclick="stopReading()"><span aria-hidden="true">&#x23F9;</span> Stop</button>
     <span class="tts-status" id="ttsStatus"></span>
   </div>
 </header>
@@ -179,21 +223,36 @@ main{max-width:1100px;margin:0 auto;padding:20px 20px 60px;}
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <div id="passagePanels"></div>
   <div class="final-results" id="finalResults">
-    <div class="final-name" id="finalName"></div>
-    <div class="final-big" id="finalScore"></div>
-    <div class="final-label" id="finalLabel"></div>
-    <div class="final-msg" id="finalMsg"></div>
-    <div class="submit-status" id="submitStatus"></div>
-    <table class="results-table" id="resultsTable"></table>
+    <div class="final-header">
+      <div class="final-student" id="finalName"></div>
+      <div class="final-time-line" id="finalTime"></div>
+      <div class="final-score-big" id="finalScore"></div>
+      <div class="final-pct" id="finalLabel"></div>
+      <div class="final-msg" id="finalMsg"></div>
+      <div class="submit-status" id="submitStatus"></div>
+    </div>
+    <div id="resultsTableContainer" style="max-width:900px;margin:0 auto;padding:0 20px;"></div>
     <div class="btn-row">
       <button class="btn-print" onclick="window.print()">&#x1F5A8; Print Results</button>
+      <button class="btn-dash" onclick="showDashboard()">&#x1F4CA; Class Dashboard</button>
       <button class="btn-restart" onclick="restartAll()">&#x1F504; Start Over</button>
     </div>
   </div>
 </main>
 </div>
 
+<div class="dashboard-panel" id="dashboardPanel">
+  <div class="dash-header">&#x1F4CA; Class Dashboard</div>
+  <div class="dash-sub">All student results submitted on this device &mdash; sorted by score</div>
+  <div id="dashContent"></div>
+  <div class="btn-row">
+    <button class="btn-print" onclick="window.print()">&#x1F5A8; Print Dashboard</button>
+    <button class="btn-restart" onclick="hideDashboard()">&#x2190; Back to Results</button>
+  </div>
+</div>
+
 <script>
+
 
 
 
@@ -721,13 +780,33 @@ const passages = [
 ];
 
 // ── STATE ────────────────────────────────────────────────────────
+
+// ── STATE ────────────────────────────────────────────────────────
 let totalCorrect = 0;
 let totalAnswered = 0;
 const totalQuestions = passages.reduce(function(sum, p) {
   return sum + p.questions.reduce(function(qs, q) { return qs + (q.parts ? 2 : 1); }, 0);
 }, 0);
 const answered = {};
+const explanationStore = {};
 let studentName = '';
+let startTime = null;
+
+// ── FONT SIZE ────────────────────────────────────────────────────
+const fontSizes = { small: '0.82rem', medium: '0.95rem', large: '1.12rem' };
+let currentFont = 'medium';
+
+function setFont(size) {
+  currentFont = size;
+  document.querySelectorAll('.passage-box').forEach(function(el) {
+    el.style.fontSize = fontSizes[size];
+  });
+  ['small','medium','large'].forEach(function(s) {
+    var btn = document.getElementById('font-' + s);
+    if (btn) btn.classList.toggle('active-font', s === size);
+  });
+  try { localStorage.setItem('sbac_font', size); } catch(e) {}
+}
 
 // ── COVER / NAME ─────────────────────────────────────────────────
 function showNameScreen() {
@@ -739,6 +818,11 @@ function showNameScreen() {
 document.addEventListener('DOMContentLoaded', function() {
   var inp = document.getElementById('nameInput');
   if (inp) inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') startReview(); });
+  // Restore font preference
+  try {
+    var saved = localStorage.getItem('sbac_font');
+    if (saved && fontSizes[saved]) setFont(saved);
+  } catch(e) {}
 });
 
 function startReview() {
@@ -748,16 +832,130 @@ function startReview() {
     return;
   }
   studentName = val;
+  // Check for ANY saved progress on this device regardless of name
+  var saved = loadAnyProgress();
+  if (saved) {
+    showResumePopup(saved);
+    return;
+  }
+  launchReview(false);
+}
+
+function launchReview(restoring) {
+  if (!restoring) startTime = new Date();
   document.getElementById('nameScreen').classList.add('hidden');
+  document.getElementById('resumePopup').classList.add('hidden');
   document.getElementById('appShell').style.display = 'block';
   buildNav();
   buildPassages();
+  if (restoring) {
+    var saved = loadAnyProgress();
+    if (saved) {
+      if (saved.startTime) startTime = new Date(saved.startTime);
+      // Override student name with the saved name so results are correct
+      studentName = saved.name || studentName;
+      restoreProgress(saved);
+      showResumeToast();
+    }
+  }
 }
 
-// ── TTS WITH ACCURATE CHAR-POSITION HIGHLIGHTING ─────────────────
-// Strategy: flatten the container text into an array of {span, charStart, charEnd}
-// then on each boundary event use charIndex to find the right span directly.
+function showResumePopup(saved) {
+  var popup = document.getElementById('resumePopup');
+  var msg = document.getElementById('resumePopupMsg');
+  if (msg) msg.textContent = 'There is a saved session for "' + (saved.name || 'a student') + '" with ' + (Object.keys(saved.answered || {}).length) + ' questions answered. Would you like to continue that session?';
+  if (popup) popup.classList.remove('hidden');
+}
 
+function resumeYes() {
+  launchReview(true);
+}
+
+function resumeNo() {
+  clearProgress();
+  document.getElementById('resumePopup').classList.add('hidden');
+  launchReview(false);
+}
+
+// ── PROGRESS SAVE/RESTORE ────────────────────────────────────────
+function saveProgress() {
+  try {
+    var data = {
+      name: studentName,
+      answered: answered,
+      totalCorrect: totalCorrect,
+      totalAnswered: totalAnswered,
+      startTime: startTime ? startTime.toISOString() : null
+    };
+    localStorage.setItem('sbac_progress_' + getSetId(), JSON.stringify(data));
+  } catch(e) {}
+}
+
+function loadAnyProgress() {
+  try {
+    var raw = localStorage.getItem('sbac_progress_' + getSetId());
+    if (!raw) return null;
+    var data = JSON.parse(raw);
+    // Return progress if it has any answered questions regardless of name
+    if (data && data.answered && Object.keys(data.answered).length > 0) return data;
+  } catch(e) {}
+  return null;
+}
+
+function loadProgress() {
+  return loadAnyProgress();
+}
+
+function clearProgress() {
+  try { localStorage.removeItem('sbac_progress_' + getSetId()); } catch(e) {}
+}
+
+function getSetId() {
+  return window.location.pathname + '_' + passages.length;
+}
+
+function restoreProgress(data) {
+  totalCorrect = data.totalCorrect || 0;
+  totalAnswered = data.totalAnswered || 0;
+  if (data.startTime) startTime = new Date(data.startTime);
+
+  Object.keys(data.answered || {}).forEach(function(key) {
+    var parts = key.split('-');
+    var pIdx = parseInt(parts[0]);
+    var qIdx = parseInt(parts[1]);
+    var part = parts[2];
+    var ans = data.answered[key];
+    answered[key] = ans;
+
+    // Disable buttons and show correct/wrong
+    for (var i = 0; i < 4; i++) {
+      var btn = document.getElementById('cb-' + pIdx + '-' + qIdx + '-' + part + '-' + i);
+      if (!btn) continue;
+      btn.disabled = true;
+      if (i === ans.correct) btn.classList.add('correct');
+      else if (i === ans.chosen && ans.chosen !== ans.correct) btn.classList.add('wrong');
+    }
+    // Show feedback
+    var fb = document.getElementById('fb-' + pIdx + '-' + qIdx + '-' + part);
+    if (fb) {
+      var exp = explanationStore[key] || '';
+      var isRight = ans.chosen === ans.correct;
+      fb.textContent = (isRight ? '\u2705 Correct! ' : '\u274C Not quite. ') + exp;
+      fb.className = 'feedback show ' + (isRight ? 'correct' : 'wrong');
+    }
+  });
+  updateScore();
+  updateAllProgressBars();
+}
+
+function showResumeToast() {
+  var toast = document.getElementById('resumeToast');
+  if (!toast) return;
+  toast.style.display = 'block';
+  setTimeout(function() { toast.style.display = 'none'; }, 3500);
+}
+
+// ── TTS ──────────────────────────────────────────────────────────
 var ttsActive = false;
 
 function setTtsStatus(msg) {
@@ -766,7 +964,7 @@ function setTtsStatus(msg) {
 }
 
 function stopReading() {
-  window.speechSynthesis.cancel();
+  try { window.speechSynthesis.cancel(); } catch(e) {}
   ttsActive = false;
   clearHighlight();
   setTtsStatus('');
@@ -778,37 +976,32 @@ function clearHighlight() {
   });
 }
 
-// Split a container's text nodes into word <span> elements
-// Returns array of {span, start, end} relative to full plain text of container
 function wrapAndIndex(container) {
   if (container.dataset.ttsWrapped) {
-    // Already wrapped — just rebuild the index
     var spans = Array.from(container.querySelectorAll('.tts-word'));
-    var fullText = spans.map(function(s) { return s.textContent; }).join(' ');
+    var fullText = getPlainText(container);
     var index = [];
     var pos = 0;
     spans.forEach(function(span) {
-      var word = span.textContent;
-      var start = fullText.indexOf(word, pos);
-      index.push({ span: span, start: start, end: start + word.length });
-      pos = start + word.length;
+      var word = span.textContent.trim();
+      if (!word) return;
+      var found = fullText.indexOf(word, pos);
+      if (found >= 0) {
+        index.push({ span: span, start: found, end: found + word.length });
+        pos = found + word.length;
+      }
     });
     return { fullText: fullText, index: index };
   }
-
-  // Walk all text nodes and wrap each word in a span
   container.dataset.ttsWrapped = '1';
   var walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
   var textNodes = [];
   var node;
   while ((node = walker.nextNode())) textNodes.push(node);
-
   textNodes.forEach(function(tn) {
     if (!tn.nodeValue.trim()) return;
     var frag = document.createDocumentFragment();
-    // Split keeping spaces
-    var tokens = tn.nodeValue.split(/(\s+)/);
-    tokens.forEach(function(token) {
+    tn.nodeValue.split(/(\s+)/).forEach(function(token) {
       if (/^\s+$/.test(token) || token === '') {
         frag.appendChild(document.createTextNode(token));
       } else {
@@ -820,115 +1013,114 @@ function wrapAndIndex(container) {
     });
     tn.parentNode.replaceChild(frag, tn);
   });
-
-  // Build index from the now-wrapped spans
   var spans = Array.from(container.querySelectorAll('.tts-word'));
-  // Build the plain text exactly as SpeechSynthesis will see it
-  var fullText = container.innerText || container.textContent;
-  fullText = fullText.replace(/\s+/g, ' ').trim();
-
+  var fullText = getPlainText(container);
   var index = [];
   var searchPos = 0;
   spans.forEach(function(span) {
     var word = span.textContent.trim();
     if (!word) return;
     var found = fullText.indexOf(word, searchPos);
-    if (found === -1) found = searchPos;
-    index.push({ span: span, start: found, end: found + word.length });
-    searchPos = found + word.length;
+    if (found >= 0) {
+      index.push({ span: span, start: found, end: found + word.length });
+      searchPos = found + word.length;
+    }
   });
-
   return { fullText: fullText, index: index };
 }
 
-// Core speak function: speaks text, highlights words in containerEl using charIndex
 function speakWithHighlight(textToSpeak, containerEl, onDone) {
-  window.speechSynthesis.cancel();
+  try { window.speechSynthesis.cancel(); } catch(e) {}
   clearHighlight();
   ttsActive = true;
-
   var spanIndex = [];
   if (containerEl) {
-    var wrapped = wrapAndIndex(containerEl);
-    spanIndex = wrapped.index;
+    try { spanIndex = wrapAndIndex(containerEl).index; } catch(e) {}
   }
-
   var utt = new SpeechSynthesisUtterance(textToSpeak);
   utt.rate = 0.88;
-  utt.pitch = 1;
-
   var lastHighlighted = null;
-
   utt.onboundary = function(event) {
-    if (!ttsActive) return;
-    if (event.name !== 'word') return;
-    if (!spanIndex.length) return;
-
-    var charIdx = event.charIndex;
-
-    // Clear previous highlight
+    if (!ttsActive || event.name !== 'word' || !spanIndex.length) return;
     if (lastHighlighted) lastHighlighted.classList.remove('speaking');
-
-    // Find the span whose range contains this charIndex
-    // Use binary search for efficiency
+    var charIdx = event.charIndex;
     var lo = 0, hi = spanIndex.length - 1, best = 0;
     while (lo <= hi) {
       var mid = Math.floor((lo + hi) / 2);
-      if (spanIndex[mid].start <= charIdx) {
-        best = mid;
-        lo = mid + 1;
-      } else {
-        hi = mid - 1;
-      }
+      if (spanIndex[mid].start <= charIdx) { best = mid; lo = mid + 1; } else { hi = mid - 1; }
     }
-
-    var entry = spanIndex[best];
-    if (entry) {
-      entry.span.classList.add('speaking');
-      entry.span.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      lastHighlighted = entry.span;
+    if (spanIndex[best]) {
+      spanIndex[best].span.classList.add('speaking');
+      try { spanIndex[best].span.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch(e) {}
+      lastHighlighted = spanIndex[best].span;
     }
   };
-
-  utt.onend = function() {
-    clearHighlight();
-    ttsActive = false;
-    setTtsStatus('');
-    if (onDone) onDone();
-  };
-  utt.onerror = function() {
-    clearHighlight();
-    ttsActive = false;
-    if (onDone) onDone();
-  };
-
-  window.speechSynthesis.speak(utt);
+  utt.onend = function() { clearHighlight(); ttsActive = false; setTtsStatus(''); if (onDone) onDone(); };
+  utt.onerror = function() { clearHighlight(); ttsActive = false; if (onDone) onDone(); };
+  try { window.speechSynthesis.speak(utt); } catch(e) { if (onDone) onDone(); }
 }
 
-// Speak plain text (no highlighting) — for short feedback messages
-function speakText(text) {
+var explanationSpeaking = false;
+
+function speakText(text, onDone) {
   try {
     window.speechSynthesis.cancel();
     clearHighlight();
     var utt = new SpeechSynthesisUtterance(text);
     utt.rate = 0.92;
+    utt.onend = function() {
+      explanationSpeaking = false;
+      unlockAllChoices();
+      if (onDone) onDone();
+    };
+    utt.onerror = function() {
+      explanationSpeaking = false;
+      unlockAllChoices();
+      if (onDone) onDone();
+    };
     window.speechSynthesis.speak(utt);
-  } catch(e) {}
+  } catch(e) {
+    explanationSpeaking = false;
+    unlockAllChoices();
+  }
+}
+
+function lockAllChoices() {
+  document.querySelectorAll('.choice-btn:not(:disabled)').forEach(function(btn) {
+    btn.dataset.locked = '1';
+    btn.style.pointerEvents = 'none';
+    btn.style.opacity = '0.5';
+  });
+  document.querySelectorAll('.q-read-btn, .next-story-btn, .finish-btn-ready').forEach(function(btn) {
+    btn.dataset.locked = '1';
+    btn.style.pointerEvents = 'none';
+    btn.style.opacity = '0.5';
+  });
+}
+
+function unlockAllChoices() {
+  document.querySelectorAll('.choice-btn[data-locked], .q-read-btn[data-locked], .next-story-btn[data-locked], .finish-btn-ready[data-locked]').forEach(function(btn) {
+    delete btn.dataset.locked;
+    btn.style.pointerEvents = '';
+    btn.style.opacity = '';
+  });
 }
 
 function getPlainText(el) {
-  return (el.innerText || el.textContent).replace(/\s+/g, ' ').trim();
+  var text = el.innerText || el.textContent;
+  // Strip emoji and non-text symbols so TTS doesn't read icon names
+  text = text.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27FF}\u{2B00}-\u{2BFF}\u{FE00}-\u{FEFF}]/gu, '');
+  // Also strip any leftover button labels that come from icon spans
+  text = text.replace(/\s+/g, ' ').trim();
+  return text;
 }
 
 function getActivePassageIdx() {
   var panels = document.querySelectorAll('.passage-panel');
-  for (var i = 0; i < panels.length; i++) {
-    if (panels[i].classList.contains('active')) return i;
-  }
+  for (var i = 0; i < panels.length; i++) { if (panels[i].classList.contains('active')) return i; }
   return 0;
 }
 
-// Read passage button handler
 function readPassage(pIdx) {
   var pbox = document.getElementById('pbox-' + pIdx);
   if (!pbox) return;
@@ -936,21 +1128,28 @@ function readPassage(pIdx) {
   speakWithHighlight(getPlainText(pbox), pbox);
 }
 
-// Read a single question card
 function readQuestionCard(cardEl) {
   if (!cardEl) return;
+  if (explanationSpeaking) return;
   stopReading();
   setTtsStatus('Reading question...');
   speakWithHighlight(getPlainText(cardEl), cardEl);
 }
 
-// Read all questions for active panel
+function readPartCard(elId) {
+  if (explanationSpeaking) return;
+  var el = document.getElementById(elId);
+  if (!el) return;
+  stopReading();
+  setTtsStatus('Reading question...');
+  speakWithHighlight(getPlainText(el), el);
+}
+
 function readQuestions() {
   var idx = getActivePassageIdx();
   var cards = Array.from(document.querySelectorAll('#panel' + idx + ' .question-card'));
   if (!cards.length) return;
-  stopReading();
-  ttsActive = true;
+  stopReading(); ttsActive = true;
   setTtsStatus('Reading questions...');
   var i = 0;
   function next() {
@@ -960,13 +1159,11 @@ function readQuestions() {
   next();
 }
 
-// Read passage then all questions
 function readAll() {
   var idx = getActivePassageIdx();
   var pbox = document.getElementById('pbox-' + idx);
   var cards = Array.from(document.querySelectorAll('#panel' + idx + ' .question-card'));
-  stopReading();
-  ttsActive = true;
+  stopReading(); ttsActive = true;
   setTtsStatus('Reading all...');
   speakWithHighlight(pbox ? getPlainText(pbox) : '', pbox, function() {
     var i = 0;
@@ -984,7 +1181,7 @@ function buildNav() {
   passages.forEach(function(p, i) {
     var btn = document.createElement('button');
     var short = p.title.replace('from ', '').replace(/^"/, '').split(' ').slice(0, 4).join(' ');
-    btn.textContent = 'P' + (i + 1) + ': ' + short + '...';
+    btn.innerHTML = 'P' + (i + 1) + ': ' + short + '... <span class="nav-prog" id="navprog-' + i + '">0%</span>';
     btn.id = 'navBtn' + i;
     btn.onclick = (function(idx) { return function() { stopReading(); showPassage(idx); }; })(i);
     if (i === 0) btn.classList.add('active');
@@ -996,10 +1193,11 @@ function showPassage(idx) {
   document.querySelectorAll('.passage-panel').forEach(function(p) { p.classList.remove('active'); });
   document.querySelectorAll('.passage-nav button').forEach(function(b) { b.classList.remove('active'); });
   var panel = document.getElementById('panel' + idx);
-  if (panel) panel.classList.add('active');
+  if (panel) { panel.classList.add('active'); panel.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   var nb = document.getElementById('navBtn' + idx);
   if (nb) nb.classList.add('active');
   document.getElementById('finalResults').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ── BUILD UI ─────────────────────────────────────────────────────
@@ -1010,6 +1208,9 @@ function buildPassages() {
     panel.className = 'passage-panel' + (pIdx === 0 ? ' active' : '');
     panel.id = 'panel' + pIdx;
 
+    // Count questions for this passage
+    var passTotal = p.questions.reduce(function(s, q) { return s + (q.parts ? 2 : 1); }, 0);
+
     var qNum = 0;
     var qHTML = p.questions.map(function(q, qIdx) {
       if (q.parts) {
@@ -1018,35 +1219,42 @@ function buildPassages() {
         qNum++;
         var n = qNum;
         return '<div class="question-card" id="qcard-' + pIdx + '-' + qIdx + '">' +
-          '<div class="q-header">' +
-            '<div class="q-num">' + n + '</div>' +
-            '<div class="q-stem">This question has two parts. First answer Part A, then answer Part B.</div>' +
-            '<button class="q-read-btn" onclick="readQuestionCard(document.getElementById(\'qcard-' + pIdx + '-' + qIdx + '\'))" title="Read question">&#x1F50A;</button>' +
+          '<div class="q-header"><div class="q-num">' + n + '</div>' +
+          '<div class="q-stem">This question has two parts. First answer Part A, then answer Part B.</div>' +
           '</div>' +
-          '<div class="part-label">Part A</div>' +
-          '<p class="part-stem">' + q.partA.stem + '</p>' +
+          '<div class="part-row"><div class="part-label">Part A</div>' +
+          '<button class="q-read-btn" onclick="readPartCard(\'partA-' + pIdx + '-' + qIdx + '\')" title="Read Part A"><span aria-hidden="true">&#x1F50A;</span></button></div>' +
+          '<p class="part-stem" id="partA-' + pIdx + '-' + qIdx + '">' + q.partA.stem + '</p>' +
           '<ul class="choices">' + aHTML + '</ul>' +
           '<div class="feedback" id="fb-' + pIdx + '-' + qIdx + '-a"></div>' +
-          '<div class="part-label" style="margin-top:14px;">Part B</div>' +
-          '<p class="part-stem">' + q.partB.stem + '</p>' +
+          '<div class="part-row" style="margin-top:12px;"><div class="part-label">Part B</div>' +
+          '<button class="q-read-btn" onclick="readPartCard(\'partB-' + pIdx + '-' + qIdx + '\')" title="Read Part B"><span aria-hidden="true">&#x1F50A;</span></button></div>' +
+          '<p class="part-stem" id="partB-' + pIdx + '-' + qIdx + '">' + q.partB.stem + '</p>' +
           '<ul class="choices">' + bHTML + '</ul>' +
-          '<div class="feedback" id="fb-' + pIdx + '-' + qIdx + '-b"></div>' +
-          '</div>';
+          '<div class="feedback" id="fb-' + pIdx + '-' + qIdx + '-b"></div></div>';
       } else {
         qNum++;
         var n = qNum;
         var cHTML = buildChoices(pIdx, qIdx, '', q);
         return '<div class="question-card" id="qcard-' + pIdx + '-' + qIdx + '">' +
-          '<div class="q-header">' +
-            '<div class="q-num">' + n + '</div>' +
-            '<div class="q-stem">' + q.stem + '</div>' +
-            '<button class="q-read-btn" onclick="readQuestionCard(document.getElementById(\'qcard-' + pIdx + '-' + qIdx + '\'))" title="Read question">&#x1F50A;</button>' +
-          '</div>' +
+          '<div class="q-header"><div class="q-num">' + n + '</div>' +
+          '<div class="q-stem">' + q.stem + '</div>' +
+          '<button class="q-read-btn" onclick="readQuestionCard(document.getElementById(\'qcard-' + pIdx + '-' + qIdx + '\'))" title="Read this question aloud"><span aria-hidden="true">&#x1F50A;</span></button></div>' +
           '<ul class="choices">' + cHTML + '</ul>' +
-          '<div class="feedback" id="fb-' + pIdx + '-' + qIdx + '-"></div>' +
-          '</div>';
+          '<div class="feedback" id="fb-' + pIdx + '-' + qIdx + '-"></div></div>';
       }
     }).join('');
+
+    // Progress bar for this passage
+    var progBar = '<div class="pass-prog-wrap">' +
+      '<span class="pass-prog-label" id="pplabel-' + pIdx + '">0 of ' + passTotal + ' answered</span>' +
+      '<div class="pass-prog-bar"><div class="pass-prog-fill" id="ppfill-' + pIdx + '" style="width:0%"></div></div>' +
+      '</div>';
+
+    // Next / Finish button
+    var navBtn = pIdx < passages.length - 1 ?
+      '<button class="next-story-btn" onclick="showPassage(' + (pIdx + 1) + ')">Next Story &#x2192;</button>' :
+      '<button class="finish-btn" id="finishBtn" onclick="tryFinish()">&#x2705; Finish &amp; See My Results</button>';
 
     panel.innerHTML =
       '<div class="passage-header">' +
@@ -1059,20 +1267,11 @@ function buildPassages() {
           '<button class="passage-read-btn" onclick="readPassage(' + pIdx + ')">&#x1F50A; Read Passage Aloud</button>' +
           '<div class="passage-box" id="pbox-' + pIdx + '">' + p.text + '</div>' +
         '</div>' +
-        '<div class="questions-box">' + qHTML +
-        (pIdx < passages.length - 1 ?
-          '<button class="next-story-btn" onclick="showPassage(' + (pIdx + 1) + ')">' +
-          'Next Story &#x2192;</button>' :
-          '<button class="finish-btn" onclick="checkFinished()">' +
-          '&#x2705; Finish &amp; See My Results</button>') +
-        '</div>' +
+        '<div class="questions-box">' + progBar + qHTML + navBtn + '</div>' +
       '</div>';
     container.appendChild(panel);
   });
 }
-
-// Store explanations separately to avoid quote escaping issues in onclick
-var explanationStore = {};
 
 function buildChoices(pIdx, qIdx, part, qObj) {
   var letters = ['A', 'B', 'C', 'D'];
@@ -1086,15 +1285,52 @@ function buildChoices(pIdx, qIdx, part, qObj) {
   }).join('');
 }
 
+// ── PROGRESS BARS ────────────────────────────────────────────────
+function getPassageAnsweredCount(pIdx) {
+  var p = passages[pIdx];
+  var count = 0;
+  p.questions.forEach(function(q, qIdx) {
+    if (q.parts) {
+      if (answered[pIdx + '-' + qIdx + '-a']) count++;
+      if (answered[pIdx + '-' + qIdx + '-b']) count++;
+    } else {
+      if (answered[pIdx + '-' + qIdx + '-']) count++;
+    }
+  });
+  return count;
+}
+
+function getPassageTotalCount(pIdx) {
+  return passages[pIdx].questions.reduce(function(s, q) { return s + (q.parts ? 2 : 1); }, 0);
+}
+
+function updatePassageProgressBar(pIdx) {
+  var done = getPassageAnsweredCount(pIdx);
+  var total = getPassageTotalCount(pIdx);
+  var pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  var fill = document.getElementById('ppfill-' + pIdx);
+  var label = document.getElementById('pplabel-' + pIdx);
+  if (fill) fill.style.width = pct + '%';
+  if (label) label.textContent = done + ' of ' + total + ' answered';
+  // Update nav tab
+  var navProg = document.getElementById('navprog-' + pIdx);
+  if (navProg) navProg.textContent = pct === 100 ? '✓' : pct + '%';
+}
+
+function updateAllProgressBars() {
+  passages.forEach(function(p, i) { updatePassageProgressBar(i); });
+}
+
 // ── ANSWER ───────────────────────────────────────────────────────
 function answer(pIdx, qIdx, part, chosen, correct) {
-  var explanation = explanationStore[pIdx + '-' + qIdx + '-' + part] || '';
   var key = pIdx + '-' + qIdx + '-' + part;
   if (answered[key]) return;
+  var explanation = explanationStore[key] || '';
   answered[key] = { chosen: chosen, correct: correct };
   totalAnswered++;
   var isCorrect = (chosen === correct);
   if (isCorrect) totalCorrect++;
+
   for (var i = 0; i < 4; i++) {
     var btn = document.getElementById('cb-' + pIdx + '-' + qIdx + '-' + part + '-' + i);
     if (!btn) continue;
@@ -1107,47 +1343,82 @@ function answer(pIdx, qIdx, part, chosen, correct) {
     fb.textContent = (isCorrect ? '\u2705 Correct! ' : '\u274C Not quite. ') + explanation;
     fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'wrong');
   }
-  speakText(isCorrect ? 'Correct!' : 'Not quite. ' + explanation);
+  explanationSpeaking = true;
+  lockAllChoices();
+  speakText(isCorrect ? 'Correct!' : 'Not quite. ' + explanation, function() {
+    updatePassageProgressBar(pIdx);
+    saveProgress();
+    // Re-check finish button after explanation
+    var fb3 = document.getElementById('finishBtn');
+    if (fb3) {
+      var allDone = Object.keys(answered).length >= totalQuestions;
+      fb3.disabled = !allDone;
+      fb3.classList.toggle('finish-btn-ready', allDone);
+    }
+  });
   updateScore();
+  updatePassageProgressBar(pIdx);
+  saveProgress();
+
+  // Enable/disable finish button
+  var fb2 = document.getElementById('finishBtn');
+  if (fb2) {
+    var allDone = Object.keys(answered).length >= totalQuestions;
+    fb2.disabled = !allDone;
+    fb2.classList.toggle('finish-btn-ready', allDone);
+  }
+}
+
+function tryFinish() {
+  var total = totalQuestions;
+  var done = Object.keys(answered).length;
+  if (done < total) {
+    var remaining = total - done;
+    showFinishWarning(remaining);
+    return;
+  }
   checkFinished();
 }
 
+function showFinishWarning(remaining) {
+  var w = document.getElementById('finishWarning');
+  if (w) {
+    w.textContent = 'You still have ' + remaining + ' question' + (remaining > 1 ? 's' : '') + ' unanswered. Please go back and answer them all before finishing.';
+    w.style.display = 'block';
+    setTimeout(function() { w.style.display = 'none'; }, 4000);
+  }
+}
+
 function updateScore() {
-  document.getElementById('scoreBadge').textContent = 'Score: ' + totalCorrect + ' correct | ' + totalAnswered + ' of ' + totalQuestions + ' answered';
-  var pct = totalQuestions > 0 ? (totalAnswered / totalQuestions) * 100 : 0;
+  var done = Object.keys(answered).length;
+  document.getElementById('scoreBadge').textContent = done + ' of ' + totalQuestions + ' answered';
+  var pct = totalQuestions > 0 ? (done / totalQuestions) * 100 : 0;
   document.getElementById('progressFill').style.width = pct + '%';
 }
 
 // ── GOOGLE FORM ───────────────────────────────────────────────────
-var FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdoJTcCoJeoBdpFDmjiF9iqMaSbqvGOd1t0kULRsohykzzwoQ/formResponse';
+var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzptFLB9npqdEJOjCHLbpYRxUczX5eQt9jCpGWSW1XxR3ukMcuXhbMJKE1QvHv0As9Z/exec';
 
-function submitToGoogleForm(name, score, pct, details) {
-  var form = document.createElement('form');
-  form.method = 'POST';
-  form.action = FORM_ACTION;
-  form.target = 'hidden_iframe';
-  form.style.display = 'none';
-  var fields = {
-    'entry.2114871058': name,
-    'entry.1025442899': score,
-    'entry.478290490': pct + '%',
-    'entry.315330554': details
-  };
-  Object.keys(fields).forEach(function(k) {
-    var inp = document.createElement('input');
-    inp.type = 'hidden'; inp.name = k; inp.value = fields[k];
-    form.appendChild(inp);
-  });
-  document.body.appendChild(form);
-  form.submit();
-  setTimeout(function() { document.body.removeChild(form); }, 3000);
+function submitToGoogleSheets(name, score, pct, timeStr, timestamp, questionResults) {
+  try {
+    // Build row: Name, Set, Score, %, Time, Timestamp, then one column per question
+    var row = [name, 'Set 1', score, pct + '%', timeStr, timestamp].concat(questionResults);
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ row: row })
+    }).catch(function() {});
+  } catch(e) {}
 }
 
-function buildDetailsString() {
+
+function buildDetailsString(timestamp) {
   var letters = ['A', 'B', 'C', 'D'];
-  var lines = [];
+  var lines = ['Completed: ' + timestamp, 'Score: ' + totalCorrect + '/' + totalQuestions];
   passages.forEach(function(p, pIdx) {
     var qNum = 0;
+    lines.push('--- ' + p.title + ' ---');
     p.questions.forEach(function(q, qIdx) {
       qNum++;
       if (q.parts) {
@@ -1155,76 +1426,291 @@ function buildDetailsString() {
           var qObj = part === 'a' ? q.partA : q.partB;
           var key = pIdx + '-' + qIdx + '-' + part;
           var ans = answered[key];
-          lines.push('P' + (pIdx+1) + ' Q' + qNum + ' Pt' + part.toUpperCase() + ': got=' + (ans ? letters[ans.chosen] : '?') + ' correct=' + letters[qObj.correct] + ' ' + (ans && ans.chosen === qObj.correct ? 'RIGHT' : 'WRONG'));
+          lines.push('Q' + qNum + ' Pt' + part.toUpperCase() + ': got=' + (ans ? letters[ans.chosen] : '?') + ' correct=' + letters[qObj.correct] + ' ' + (ans && ans.chosen === qObj.correct ? 'RIGHT' : 'WRONG'));
         });
       } else {
         var key = pIdx + '-' + qIdx + '-';
         var ans = answered[key];
-        lines.push('P' + (pIdx+1) + ' Q' + qNum + ': got=' + (ans ? letters[ans.chosen] : '?') + ' correct=' + letters[q.correct] + ' ' + (ans && ans.chosen === q.correct ? 'RIGHT' : 'WRONG'));
+        lines.push('Q' + qNum + ': got=' + (ans ? letters[ans.chosen] : '?') + ' correct=' + letters[q.correct] + ' ' + (ans && ans.chosen === q.correct ? 'RIGHT' : 'WRONG'));
       }
     });
   });
-  return lines.join(' | ');
+  return lines.join('\n');
 }
 
-function checkFinished() {
-  // Safety net: also count answered keys directly
-  var answeredCount = Object.keys(answered).length;
-  if (totalAnswered < totalQuestions && answeredCount < totalQuestions) return;
-  try { stopReading(); } catch(e) {}
-  setTimeout(function() {
-    document.querySelectorAll('.passage-panel').forEach(function(p) { p.classList.remove('active'); });
-    var final = document.getElementById('finalResults');
-    final.classList.add('show');
-    var pct = Math.round((totalCorrect / totalQuestions) * 100);
-    document.getElementById('finalName').textContent = 'Student: ' + studentName;
-    document.getElementById('finalScore').textContent = totalCorrect + ' / ' + totalQuestions;
-    document.getElementById('finalLabel').textContent = pct + '% — All ' + totalQuestions + ' questions answered!';
-    var msg = pct >= 90 ? '\u2B50 Outstanding! You are an inference master!' :
-              pct >= 75 ? '\uD83C\uDF89 Great job! You have strong inference skills!' :
-              pct >= 60 ? '\uD83D\uDC4D Good effort! Keep practicing inferences!' :
-                          '\uD83D\uDCDA Keep reviewing — you have got this!';
-    document.getElementById('finalMsg').textContent = msg;
-    buildResultsTable();
-    try {
-      submitToGoogleForm(studentName, totalCorrect + '/' + totalQuestions, pct, buildDetailsString());
-      document.getElementById('submitStatus').textContent = '\u2705 Results sent to your teacher!';
-    } catch(e) {
-      document.getElementById('submitStatus').textContent = 'Results ready!';
-    }
-    speakText('You finished! You got ' + totalCorrect + ' out of ' + totalQuestions + ' correct!');
-  }, 800);
-}
+// ── CHECK FINISHED ───────────────────────────────────────────────
 
-function buildResultsTable() {
+
+// ── RESULTS TABLE ────────────────────────────────────────────────
+function buildResultsTable(pct, timestamp, timeStr) {
   var letters = ['A', 'B', 'C', 'D'];
-  var html = '<thead><tr><th>Passage</th><th>Question</th><th>Your Answer</th><th>Correct</th><th>Result</th></tr></thead><tbody>';
+  var container = document.getElementById('resultsTableContainer');
+  if (!container) return;
+
+  var html = '';
+
+  // Summary card
+  html += '<div class="res-summary">' +
+    '<div class="res-sum-item"><div class="res-sum-val">' + totalCorrect + '/' + totalQuestions + '</div><div class="res-sum-key">Score</div></div>' +
+    '<div class="res-sum-item"><div class="res-sum-val">' + pct + '%</div><div class="res-sum-key">Percent</div></div>' +
+    '<div class="res-sum-item"><div class="res-sum-val">' + timeStr + '</div><div class="res-sum-key">Time Taken</div></div>' +
+    '</div>';
+
+  // Per-passage breakdown
   passages.forEach(function(p, pIdx) {
+    var passCorrect = 0;
+    var passTotal = 0;
+    var rows = '';
     var qNum = 0;
+
     p.questions.forEach(function(q, qIdx) {
-      qNum++;
       if (q.parts) {
         ['a', 'b'].forEach(function(part) {
+          qNum++;
           var qObj = part === 'a' ? q.partA : q.partB;
           var key = pIdx + '-' + qIdx + '-' + part;
           var ans = answered[key];
           var chosen = ans ? letters[ans.chosen] : '?';
           var isRight = ans && ans.chosen === qObj.correct;
-          html += '<tr><td>P' + (pIdx+1) + '</td><td>Q' + qNum + ' Pt ' + part.toUpperCase() + '</td><td>' + chosen + '</td><td>' + letters[qObj.correct] + '</td><td class="' + (isRight ? 'tag-correct' : 'tag-wrong') + '">' + (isRight ? '\u2705' : '\u274C') + '</td></tr>';
+          passTotal++;
+          if (isRight) passCorrect++;
+          var qLabel = 'Q' + qNum + ' Part ' + part.toUpperCase();
+          var qType = getQuestionType(qObj.stem);
+          rows += '<tr class="' + (isRight ? 'row-right' : 'row-wrong') + '">' +
+            '<td>' + qLabel + '</td>' +
+            '<td class="q-type-cell">' + qType + '</td>' +
+            '<td class="ans-cell ' + (isRight ? 'ans-right' : 'ans-wrong') + '">' + chosen + '</td>' +
+            '<td>' + letters[qObj.correct] + '</td>' +
+            '<td>' + (isRight ? '\u2705' : '\u274C') + '</td>' +
+            '</tr>';
         });
       } else {
+        qNum++;
         var key = pIdx + '-' + qIdx + '-';
         var ans = answered[key];
         var chosen = ans ? letters[ans.chosen] : '?';
         var isRight = ans && ans.chosen === q.correct;
-        html += '<tr><td>P' + (pIdx+1) + '</td><td>Q' + qNum + '</td><td>' + chosen + '</td><td>' + letters[q.correct] + '</td><td class="' + (isRight ? 'tag-correct' : 'tag-wrong') + '">' + (isRight ? '\u2705' : '\u274C') + '</td></tr>';
+        passTotal++;
+        if (isRight) passCorrect++;
+        var qType = getQuestionType(q.stem);
+        rows += '<tr class="' + (isRight ? 'row-right' : 'row-wrong') + '">' +
+          '<td>Q' + qNum + '</td>' +
+          '<td class="q-type-cell">' + qType + '</td>' +
+          '<td class="ans-cell ' + (isRight ? 'ans-right' : 'ans-wrong') + '">' + chosen + '</td>' +
+          '<td>' + letters[q.correct] + '</td>' +
+          '<td>' + (isRight ? '\u2705' : '\u274C') + '</td>' +
+          '</tr>';
+      }
+    });
+
+    var passPct = Math.round((passCorrect / passTotal) * 100);
+    var passColor = passPct >= 80 ? '#16a34a' : passPct >= 60 ? '#ca8a04' : '#dc2626';
+
+    html += '<div class="res-passage-block">' +
+      '<div class="res-pass-header">' +
+        '<div class="res-pass-title">P' + (pIdx+1) + ': ' + p.title + '</div>' +
+        '<div class="res-pass-score" style="color:' + passColor + '">' + passCorrect + '/' + passTotal + ' (' + passPct + '%)</div>' +
+      '</div>' +
+      '<table class="res-table">' +
+        '<thead><tr><th>Question</th><th>Type</th><th>Your Answer</th><th>Correct</th><th>Result</th></tr></thead>' +
+        '<tbody>' + rows + '</tbody>' +
+      '</table></div>';
+  });
+
+  // Skills breakdown
+  var skillMap = {};
+  passages.forEach(function(p, pIdx) {
+    p.questions.forEach(function(q, qIdx) {
+      function addSkill(stem, key, isRight) {
+        var type = getQuestionType(stem);
+        if (!skillMap[type]) skillMap[type] = { right: 0, total: 0 };
+        skillMap[type].total++;
+        if (isRight) skillMap[type].right++;
+      }
+      if (q.parts) {
+        ['a','b'].forEach(function(part) {
+          var qObj = part === 'a' ? q.partA : q.partB;
+          var ans = answered[pIdx + '-' + qIdx + '-' + part];
+          addSkill(qObj.stem, pIdx + '-' + qIdx + '-' + part, ans && ans.chosen === qObj.correct);
+        });
+      } else {
+        var ans = answered[pIdx + '-' + qIdx + '-'];
+        addSkill(q.stem, pIdx + '-' + qIdx + '-', ans && ans.chosen === q.correct);
       }
     });
   });
-  document.getElementById('resultsTable').innerHTML = html + '</tbody>';
+
+  html += '<div class="res-skills-block"><div class="res-pass-header"><div class="res-pass-title">\uD83C\uDFAF Skills Breakdown</div></div>';
+  Object.keys(skillMap).sort().forEach(function(skill) {
+    var s = skillMap[skill];
+    var p = Math.round((s.right / s.total) * 100);
+    var col = p >= 80 ? '#16a34a' : p >= 60 ? '#ca8a04' : '#dc2626';
+    html += '<div class="skill-row">' +
+      '<div class="skill-name">' + skill + '</div>' +
+      '<div class="skill-bar-wrap"><div class="skill-bar-fill" style="width:' + p + '%;background:' + col + '"></div></div>' +
+      '<div class="skill-pct" style="color:' + col + '">' + s.right + '/' + s.total + ' (' + p + '%)</div>' +
+      '</div>';
+  });
+  html += '</div>';
+
+  container.innerHTML = html;
 }
 
-function restartAll() { location.reload(); }
+function getQuestionType(stem) {
+  if (!stem) return 'Inference';
+  var s = stem.toLowerCase();
+  if (s.includes('main idea') || s.includes('best tells') || s.includes('best describes the main')) return 'Main Idea';
+  if (s.includes('theme')) return 'Theme';
+  if (s.includes('point of view') || s.includes('author')) return "Author's Point of View";
+  if (s.includes('detail') && s.includes('support')) return 'Text Evidence';
+  if (s.includes('problem')) return 'Main Problem';
+  if (s.includes('infer') || s.includes('conclusion') || s.includes('can be made')) return 'Inference';
+  if (s.includes('paragraph')) return 'Paragraph Analysis';
+  if (s.includes('quotation marks') || s.includes('word') || s.includes('mean')) return 'Word Choice / Craft';
+  return 'Inference';
+}
+
+var SKILL_TYPES = ['Inference', 'Main Idea', 'Text Evidence', 'Theme', "Author's POV", 'Word Choice', 'Paragraph Analysis', 'Main Problem'];
+
+function buildQuestionResults() {
+  var letters = ['A', 'B', 'C', 'D'];
+  var results = [];
+  var skillMap = {};
+  SKILL_TYPES.forEach(function(t) { skillMap[t] = { right: 0, total: 0 }; });
+
+  passages.forEach(function(p, pIdx) {
+    p.questions.forEach(function(q, qIdx) {
+      if (q.parts) {
+        ['a', 'b'].forEach(function(part) {
+          var qObj = part === 'a' ? q.partA : q.partB;
+          var key = pIdx + '-' + qIdx + '-' + part;
+          var ans = answered[key];
+          var isRight = ans && ans.chosen === qObj.correct;
+          results.push(isRight ? 'Correct (' + letters[ans.chosen] + ')' : (ans ? 'Wrong - got ' + letters[ans.chosen] + ' correct ' + letters[qObj.correct] : '?'));
+          var t = getQuestionType(qObj.stem);
+          if (skillMap[t]) { skillMap[t].total++; if (isRight) skillMap[t].right++; }
+        });
+      } else {
+        var key = pIdx + '-' + qIdx + '-';
+        var ans = answered[key];
+        var isRight = ans && ans.chosen === q.correct;
+        results.push(isRight ? 'Correct (' + letters[ans.chosen] + ')' : (ans ? 'Wrong - got ' + letters[ans.chosen] + ' correct ' + letters[q.correct] : '?'));
+        var t = getQuestionType(q.stem);
+        if (skillMap[t]) { skillMap[t].total++; if (isRight) skillMap[t].right++; }
+      }
+    });
+  });
+
+  // Pad blank columns for the OTHER set's questions so skills align with headers
+  for (var pad = 0; pad < 25; pad++) { results.push(''); }
+
+  // Append skill summary columns at the end
+  SKILL_TYPES.forEach(function(t) {
+    var s = skillMap[t];
+    if (s.total > 0) {
+      results.push(s.right + '/' + s.total + ' (' + Math.round((s.right/s.total)*100) + '%)');
+    } else {
+      results.push('N/A');
+    }
+  });
+
+  return results;
+}
+
+function restartAll() { clearProgress(); location.reload(); }
+
+// -- DASHBOARD --
+var DASH_KEY = 'sbac_dashboard_' + passages.length;
+
+function saveResultToDashboard(name, score, pct, timestamp, timeSpent) {
+  try {
+    var existing = JSON.parse(localStorage.getItem(DASH_KEY) || '[]');
+    existing.push({ name: name, score: score, pct: pct, timestamp: timestamp, timeSpent: timeSpent });
+    localStorage.setItem(DASH_KEY, JSON.stringify(existing));
+  } catch(e) {}
+}
+
+function checkFinished() {
+  var done = Object.keys(answered).length;
+  if (done < totalQuestions) return;
+  try { stopReading(); } catch(e) {}
+  clearProgress();
+  var endTime = new Date();
+  var elapsed = startTime ? Math.round((endTime - startTime) / 1000) : 0;
+  var mins = Math.floor(elapsed / 60);
+  var secs = elapsed % 60;
+  var timeStr = mins + 'm ' + secs + 's';
+  var timestamp = endTime.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) +
+    ' at ' + endTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  var pct = Math.round((totalCorrect / totalQuestions) * 100);
+  saveResultToDashboard(studentName, totalCorrect + '/' + totalQuestions, pct, timestamp, timeStr);
+
+  setTimeout(function() {
+    document.querySelectorAll('.passage-panel').forEach(function(p) { p.classList.remove('active'); });
+    document.getElementById('finalResults').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('finalName').textContent = studentName;
+    document.getElementById('finalTime').textContent = timestamp + ' \u00B7 Time: ' + timeStr;
+    document.getElementById('finalScore').textContent = totalCorrect + ' / ' + totalQuestions;
+    document.getElementById('finalLabel').textContent = pct + '%';
+    var msg = pct >= 90 ? '\u2B50 Outstanding! You are an inference master!' :
+              pct >= 75 ? 'Great job! Strong inference skills!' :
+              pct >= 60 ? 'Good effort! Keep practicing!' :
+                          'Keep reviewing - you have got this!';
+    document.getElementById('finalMsg').textContent = msg;
+    buildResultsTable(pct, timestamp, timeStr);
+    try {
+      submitToGoogleSheets(studentName, totalCorrect + '/' + totalQuestions, pct, timeStr, timestamp, buildQuestionResults());
+      document.getElementById('submitStatus').textContent = 'Results sent to your teacher!';
+    } catch(e) { document.getElementById('submitStatus').textContent = 'Results ready!'; }
+    speakText('You finished! You got ' + totalCorrect + ' out of ' + totalQuestions + ' correct!');
+  }, 600);
+}
+
+function showDashboard() {
+  document.getElementById('finalResults').classList.remove('show');
+  document.getElementById('dashboardPanel').classList.add('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  renderDashboard();
+}
+
+function hideDashboard() {
+  document.getElementById('dashboardPanel').classList.remove('show');
+  document.getElementById('finalResults').classList.add('show');
+}
+
+function renderDashboard() {
+  var content = document.getElementById('dashContent');
+  var data = [];
+  try { data = JSON.parse(localStorage.getItem(DASH_KEY) || '[]'); } catch(e) {}
+  if (!data.length) {
+    content.innerHTML = '<p class="dash-empty">No results yet. Students who finish will appear here.</p>';
+    return;
+  }
+  data.sort(function(a, b) { return b.pct - a.pct; });
+  var total = data.length;
+  var avg = Math.round(data.reduce(function(s,r){return s+r.pct;},0) / total);
+  var avgCol = avg >= 80 ? '#16a34a' : avg >= 60 ? '#ca8a04' : '#dc2626';
+  var html = '<div class="dash-summary-bar">' +
+    '<div class="dash-sum-item"><div class="dash-sum-val" style="color:' + avgCol + '">' + avg + '%</div><div class="dash-sum-key">Class Average</div></div>' +
+    '<div class="dash-sum-item"><div class="dash-sum-val">' + total + '</div><div class="dash-sum-key">Students Completed</div></div>' +
+    '</div>' +
+    '<table class="dash-table"><thead><tr><th>#</th><th>Student</th><th>Score</th><th>%</th><th>Time</th><th>Completed</th></tr></thead><tbody>';
+  data.forEach(function(r, i) {
+    var col = r.pct >= 80 ? '#16a34a' : r.pct >= 60 ? '#ca8a04' : '#dc2626';
+    html += '<tr><td>' + (i+1) + '</td><td><strong>' + r.name + '</strong></td>' +
+      '<td>' + r.score +
+        '<div class="dash-score-bar"><div class="dash-score-fill" style="width:' + r.pct + '%;background:' + col + '"></div></div>' +
+      '</td>' +
+      '<td style="color:' + col + ';font-weight:900">' + r.pct + '%</td>' +
+      '<td>' + (r.timeSpent || '--') + '</td>' +
+      '<td style="font-size:.78rem;color:var(--gray)">' + (r.timestamp || '--') + '</td></tr>';
+  });
+  html += '</tbody></table>';
+  content.innerHTML = html;
+}
+
+function restartAll() { clearProgress(); location.reload(); }
 
 </script>
 </body>
