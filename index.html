@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SBAC Reading Review - Inferences - Set 1</title>
+<title>SBAC Reading Review - Inferences</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--navy:#1a2744;--blue:#2563eb;--sky:#dbeafe;--green:#16a34a;--green-bg:#dcfce7;--red:#dc2626;--red-bg:#fee2e2;--gray:#64748b;--light:#f8fafc;--border:#e2e8f0;--passage-bg:#f0f4ff;}
@@ -1401,7 +1401,6 @@ var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzptFLB9npqdEJOjC
 
 function submitToGoogleSheets(name, score, pct, timeStr, timestamp, questionResults) {
   try {
-    // Build row: Name, Set, Score, %, Time, Timestamp, then one column per question
     var row = [name, 'Set 1', score, pct + '%', timeStr, timestamp].concat(questionResults);
     fetch(APPS_SCRIPT_URL, {
       method: 'POST',
@@ -1573,20 +1572,16 @@ function getQuestionType(stem) {
 var SKILL_TYPES = ['Inference', 'Main Idea', 'Text Evidence', 'Theme', "Author's POV", 'Word Choice', 'Paragraph Analysis', 'Main Problem'];
 
 function buildQuestionResults() {
-  var letters = ['A', 'B', 'C', 'D'];
-  var results = [];
   var skillMap = {};
   SKILL_TYPES.forEach(function(t) { skillMap[t] = { right: 0, total: 0 }; });
-
   passages.forEach(function(p, pIdx) {
     p.questions.forEach(function(q, qIdx) {
       if (q.parts) {
-        ['a', 'b'].forEach(function(part) {
+        ['a','b'].forEach(function(part) {
           var qObj = part === 'a' ? q.partA : q.partB;
           var key = pIdx + '-' + qIdx + '-' + part;
           var ans = answered[key];
           var isRight = ans && ans.chosen === qObj.correct;
-          results.push(isRight ? 'Correct (' + letters[ans.chosen] + ')' : (ans ? 'Wrong - got ' + letters[ans.chosen] + ' correct ' + letters[qObj.correct] : '?'));
           var t = getQuestionType(qObj.stem);
           if (skillMap[t]) { skillMap[t].total++; if (isRight) skillMap[t].right++; }
         });
@@ -1594,28 +1589,17 @@ function buildQuestionResults() {
         var key = pIdx + '-' + qIdx + '-';
         var ans = answered[key];
         var isRight = ans && ans.chosen === q.correct;
-        results.push(isRight ? 'Correct (' + letters[ans.chosen] + ')' : (ans ? 'Wrong - got ' + letters[ans.chosen] + ' correct ' + letters[q.correct] : '?'));
         var t = getQuestionType(q.stem);
         if (skillMap[t]) { skillMap[t].total++; if (isRight) skillMap[t].right++; }
       }
     });
   });
-
-  // Pad blank columns for the OTHER set's questions so skills align with headers
-  for (var pad = 0; pad < 25; pad++) { results.push(''); }
-
-  // Append skill summary columns at the end
-  SKILL_TYPES.forEach(function(t) {
+  return SKILL_TYPES.map(function(t) {
     var s = skillMap[t];
-    if (s.total > 0) {
-      results.push(s.right + '/' + s.total + ' (' + Math.round((s.right/s.total)*100) + '%)');
-    } else {
-      results.push('N/A');
-    }
+    return s.total > 0 ? s.right + '/' + s.total + ' (' + Math.round((s.right/s.total)*100) + '%)' : 'N/A';
   });
-
-  return results;
 }
+
 
 function restartAll() { clearProgress(); location.reload(); }
 
